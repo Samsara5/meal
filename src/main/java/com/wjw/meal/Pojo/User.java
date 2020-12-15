@@ -3,7 +3,9 @@ package com.wjw.meal.Pojo;
 import java.util.Date;
 
 public class User {
-    private Integer uid;
+    private String uid;
+
+    private String name;
 
     private String username;
 
@@ -21,12 +23,20 @@ public class User {
 
     private Date createtime;
 
-    public Integer getUid() {
+    public String getUid() {
         return uid;
     }
 
-    public void setUid(Integer uid) {
-        this.uid = uid;
+    public void setUid(String uid) {
+        this.uid = uid == null ? null : uid.trim();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
     }
 
     public String getUsername() {

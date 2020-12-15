@@ -1,18 +1,17 @@
 package com.wjw.meal.Service;
 
-import com.wjw.meal.Dao.UserMapper;
 import com.wjw.meal.Pojo.User;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
-@Service
-public class UserService {
+public interface UserService {
 
-    UserMapper userMapper;
+    List<User> getAllUser();
 
-    List<User> getAllUser(){
-        return userMapper.selectByExample(null);
-    }
+    Boolean verifyUser(String username, String password);
 
+    void AddUser(User user);
+
+    Map<String,String> getPassword(String username,String phone,String name);
 }

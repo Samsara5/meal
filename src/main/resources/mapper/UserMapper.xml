@@ -2,7 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.wjw.meal.Dao.UserMapper" >
   <resultMap id="BaseResultMap" type="com.wjw.meal.Pojo.User" >
-    <id column="uid" property="uid" jdbcType="INTEGER" />
+    <id column="uid" property="uid" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="username" property="username" jdbcType="VARCHAR" />
     <result column="password" property="password" jdbcType="VARCHAR" />
     <result column="roleid" property="roleid" jdbcType="INTEGER" />
@@ -71,7 +72,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    uid, username, password, roleid, phoen, email, birth, gender, createtime
+    uid, name, username, password, roleid, phoen, email, birth, gender, createtime
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.wjw.meal.Pojo.UserExample" >
     select
@@ -87,15 +88,15 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from re_user
-    where uid = #{uid,jdbcType=INTEGER}
+    where uid = #{uid,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from re_user
-    where uid = #{uid,jdbcType=INTEGER}
+    where uid = #{uid,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.wjw.meal.Pojo.UserExample" >
     delete from re_user
@@ -104,20 +105,23 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.wjw.meal.Pojo.User" >
-    insert into re_user (uid, username, password, 
-      roleid, phoen, email, 
-      birth, gender, createtime
-      )
-    values (#{uid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{roleid,jdbcType=INTEGER}, #{phoen,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
-      #{birth,jdbcType=TIMESTAMP}, #{gender,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}
-      )
+    insert into re_user (uid, name, username, 
+      password, roleid, phoen, 
+      email, birth, gender, 
+      createtime)
+    values (#{uid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{roleid,jdbcType=INTEGER}, #{phoen,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{birth,jdbcType=TIMESTAMP}, #{gender,jdbcType=INTEGER}, 
+      #{createtime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.wjw.meal.Pojo.User" >
     insert into re_user
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="uid != null" >
         uid,
+      </if>
+      <if test="name != null" >
+        name,
       </if>
       <if test="username != null" >
         username,
@@ -146,7 +150,10 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="uid != null" >
-        #{uid,jdbcType=INTEGER},
+        #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
       </if>
       <if test="username != null" >
         #{username,jdbcType=VARCHAR},
@@ -184,7 +191,10 @@
     update re_user
     <set >
       <if test="record.uid != null" >
-        uid = #{record.uid,jdbcType=INTEGER},
+        uid = #{record.uid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
       </if>
       <if test="record.username != null" >
         username = #{record.username,jdbcType=VARCHAR},
@@ -217,7 +227,8 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update re_user
-    set uid = #{record.uid,jdbcType=INTEGER},
+    set uid = #{record.uid,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
       username = #{record.username,jdbcType=VARCHAR},
       password = #{record.password,jdbcType=VARCHAR},
       roleid = #{record.roleid,jdbcType=INTEGER},
@@ -233,6 +244,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.wjw.meal.Pojo.User" >
     update re_user
     <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
       <if test="username != null" >
         username = #{username,jdbcType=VARCHAR},
       </if>
@@ -258,11 +272,12 @@
         createtime = #{createtime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where uid = #{uid,jdbcType=INTEGER}
+    where uid = #{uid,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.wjw.meal.Pojo.User" >
     update re_user
-    set username = #{username,jdbcType=VARCHAR},
+    set name = #{name,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
       roleid = #{roleid,jdbcType=INTEGER},
       phoen = #{phoen,jdbcType=VARCHAR},
@@ -270,6 +285,6 @@
       birth = #{birth,jdbcType=TIMESTAMP},
       gender = #{gender,jdbcType=INTEGER},
       createtime = #{createtime,jdbcType=TIMESTAMP}
-    where uid = #{uid,jdbcType=INTEGER}
+    where uid = #{uid,jdbcType=VARCHAR}
   </update>
 </mapper>
