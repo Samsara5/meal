@@ -24,7 +24,7 @@ public class UsercController {
 
     @ApiOperation(value = "用户登录", notes = "")
     @PostMapping(value="/login")
-    public Message Login(@RequestParam String username, String password,String token) {
+    public Message Login(@RequestParam String username, String password) {
         if (userService.verifyUser(username,password)){
          return Message.success().add("Token", Token.token(username,password));
         }else {
