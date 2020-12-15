@@ -9,6 +9,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Map;
@@ -17,7 +18,7 @@ import java.util.Map;
 @RestController
 @Api(tags = { "用户信息管理" })
 @RequestMapping("/user")
-public class UsercController {
+public class UserController {
 
     @Autowired
     private UserService userService;
@@ -48,9 +49,24 @@ public class UsercController {
         }
         return Message.fail().add("message","找回失败，请重试");
     }
+
     @ApiOperation(value = "获取所有用户信息",notes = "")
     @GetMapping(value = "/getAllUser")
     public List<User> getAllUsers(){
         return userService.getAllUser();
     }
+
+    @ApiOperation(value = "通过username更新用户",notes = "")
+    @PostMapping(value = "/updateuser")
+    public Message updateUser(@RequestBody User user){
+        userService.UpdateUser(user);
+        return Message.success();
+    }
+
+    @ApiOperation(value = "导入Excel模板批量导入用户",notes = "")
+    @PostMapping(value = "/importUsersByExcel")
+    public String importUsersByExcel(@RequestParam("file") MultipartFile file){
+        return userService.importUsersByExcel(file);
+    }
+
 }

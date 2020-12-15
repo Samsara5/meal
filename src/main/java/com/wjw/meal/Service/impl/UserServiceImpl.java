@@ -7,6 +7,7 @@ import com.wjw.meal.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.*;
 
@@ -57,4 +58,16 @@ public class UserServiceImpl implements UserService {
         }
         return res;
     }
+
+    @Override
+    public void UpdateUser(User user) {
+        userMapper.updateByPrimaryKeySelective(user);
+    }
+
+    @Override
+    public String importUsersByExcel(MultipartFile file) {
+        return null;
+    }
+
+
 }
