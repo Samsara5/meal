@@ -36,6 +36,7 @@ public class UserServiceImpl implements UserService {
         return false;
     }
 
+
     @Override
     public void AddUser(User user) {
         user.setUid(UUID.randomUUID().toString());
@@ -61,7 +62,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void UpdateUser(User user) {
-        userMapper.updateByPrimaryKeySelective(user);
+        UserExample example = new UserExample();
+        example.createCriteria().andUsernameEqualTo(user.getUsername());
+        userMapper.updateByExampleSelective(user,example);
     }
 
     @Override
