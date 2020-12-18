@@ -44,6 +44,7 @@
 
         <!-- 指定每个表的生成策略 -->
 <!--     <table tableName="re_user" domainObjectName="User"></table>-->
-         <table tableName="re_employee" domainObjectName="Employee"></table>
+<!--     <table tableName="re_employee" domainObjectName="Employee"></table>-->
+         <table tableName="re_navigation" domainObjectName="Navigation"></table>
     </context>
 </generatorConfiguration>
