@@ -11,7 +11,7 @@
  Target Server Version : 50732
  File Encoding         : 65001
 
- Date: 18/12/2020 17:04:22
+ Date: 18/12/2020 18:31:56
 */
 
 SET NAMES utf8mb4;
@@ -63,16 +63,21 @@ INSERT INTO `re_employee` VALUES ('96bb9382-f252-4947-b07b-6c98cc023509', '聂�
 -- ----------------------------
 DROP TABLE IF EXISTS `re_menu`;
 CREATE TABLE `re_menu`  (
-  `mid` int(10) NOT NULL AUTO_INCREMENT,
+  `mid` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `mname` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `mmateria` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `mpirce` int(10) NULL DEFAULT NULL,
-  `mnumber` int(10) NULL DEFAULT NULL,
-  `mimageurl` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '展示图片',
+  `mnumber` int(10) NULL DEFAULT NULL COMMENT '剩余数量',
+  `mimageurl` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '展示图片',
   `mischara` int(10) NULL DEFAULT NULL COMMENT '是否是特色菜',
   `mtype` int(2) NULL DEFAULT NULL COMMENT '菜品种类奶茶，小吃...',
   PRIMARY KEY (`mid`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of re_menu
+-- ----------------------------
+INSERT INTO `re_menu` VALUES ('c66cc66f-5180-4acc-b7d8-841ead7e0339', '回锅肉炒饭', '1,2,3', 11, 100, 'img/1.1.jpg', 1, 204);
 
 -- ----------------------------
 -- Table structure for re_menutpye
@@ -82,8 +87,24 @@ CREATE TABLE `re_menutpye`  (
   `mtid` int(10) NOT NULL,
   `mtname` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `mpid` int(10) NULL DEFAULT NULL,
+  `mlevel` int(1) NULL DEFAULT NULL,
   PRIMARY KEY (`mtid`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of re_menutpye
+-- ----------------------------
+INSERT INTO `re_menutpye` VALUES (100, '特色菜', 0, 1);
+INSERT INTO `re_menutpye` VALUES (200, '主食类', 0, 1);
+INSERT INTO `re_menutpye` VALUES (201, '饭类', 200, 2);
+INSERT INTO `re_menutpye` VALUES (202, '面食类', 200, 2);
+INSERT INTO `re_menutpye` VALUES (203, '盖浇系列', 201, 3);
+INSERT INTO `re_menutpye` VALUES (204, '炒饭系列', 201, 3);
+INSERT INTO `re_menutpye` VALUES (205, '刀削面系列', 202, 3);
+INSERT INTO `re_menutpye` VALUES (206, '拉面系列', 202, 3);
+INSERT INTO `re_menutpye` VALUES (207, '干拌面系列', 202, 3);
+INSERT INTO `re_menutpye` VALUES (400, '小吃类', 0, 1);
+INSERT INTO `re_menutpye` VALUES (500, '饮料类', 0, 1);
 
 -- ----------------------------
 -- Table structure for re_navigation

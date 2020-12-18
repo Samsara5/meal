@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wjw.meal.Dao.MenuMapper" >
+  <resultMap id="BaseResultMap" type="com.wjw.meal.Pojo.Menu" >
+    <id column="mid" property="mid" jdbcType="VARCHAR" />
+    <result column="mname" property="mname" jdbcType="VARCHAR" />
+    <result column="mmateria" property="mmateria" jdbcType="VARCHAR" />
+    <result column="mpirce" property="mpirce" jdbcType="INTEGER" />
+    <result column="mnumber" property="mnumber" jdbcType="INTEGER" />
+    <result column="mimageurl" property="mimageurl" jdbcType="VARCHAR" />
+    <result column="mischara" property="mischara" jdbcType="INTEGER" />
+    <result column="mtype" property="mtype" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    mid, mname, mmateria, mpirce, mnumber, mimageurl, mischara, mtype
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.wjw.meal.Pojo.MenuExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from re_menu
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from re_menu
+    where mid = #{mid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from re_menu
+    where mid = #{mid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.wjw.meal.Pojo.MenuExample" >
+    delete from re_menu
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.wjw.meal.Pojo.Menu" >
+    insert into re_menu (mid, mname, mmateria, 
+      mpirce, mnumber, mimageurl, 
+      mischara, mtype)
+    values (#{mid,jdbcType=VARCHAR}, #{mname,jdbcType=VARCHAR}, #{mmateria,jdbcType=VARCHAR}, 
+      #{mpirce,jdbcType=INTEGER}, #{mnumber,jdbcType=INTEGER}, #{mimageurl,jdbcType=VARCHAR}, 
+      #{mischara,jdbcType=INTEGER}, #{mtype,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wjw.meal.Pojo.Menu" >
+    insert into re_menu
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="mid != null" >
+        mid,
+      </if>
+      <if test="mname != null" >
+        mname,
+      </if>
+      <if test="mmateria != null" >
+        mmateria,
+      </if>
+      <if test="mpirce != null" >
+        mpirce,
+      </if>
+      <if test="mnumber != null" >
+        mnumber,
+      </if>
+      <if test="mimageurl != null" >
+        mimageurl,
+      </if>
+      <if test="mischara != null" >
+        mischara,
+      </if>
+      <if test="mtype != null" >
+        mtype,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="mid != null" >
+        #{mid,jdbcType=VARCHAR},
+      </if>
+      <if test="mname != null" >
+        #{mname,jdbcType=VARCHAR},
+      </if>
+      <if test="mmateria != null" >
+        #{mmateria,jdbcType=VARCHAR},
+      </if>
+      <if test="mpirce != null" >
+        #{mpirce,jdbcType=INTEGER},
+      </if>
+      <if test="mnumber != null" >
+        #{mnumber,jdbcType=INTEGER},
+      </if>
+      <if test="mimageurl != null" >
+        #{mimageurl,jdbcType=VARCHAR},
+      </if>
+      <if test="mischara != null" >
+        #{mischara,jdbcType=INTEGER},
+      </if>
+      <if test="mtype != null" >
+        #{mtype,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.wjw.meal.Pojo.MenuExample" resultType="java.lang.Integer" >
+    select count(*) from re_menu
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update re_menu
+    <set >
+      <if test="record.mid != null" >
+        mid = #{record.mid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mname != null" >
+        mname = #{record.mname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mmateria != null" >
+        mmateria = #{record.mmateria,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mpirce != null" >
+        mpirce = #{record.mpirce,jdbcType=INTEGER},
+      </if>
+      <if test="record.mnumber != null" >
+        mnumber = #{record.mnumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.mimageurl != null" >
+        mimageurl = #{record.mimageurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mischara != null" >
+        mischara = #{record.mischara,jdbcType=INTEGER},
+      </if>
+      <if test="record.mtype != null" >
+        mtype = #{record.mtype,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update re_menu
+    set mid = #{record.mid,jdbcType=VARCHAR},
+      mname = #{record.mname,jdbcType=VARCHAR},
+      mmateria = #{record.mmateria,jdbcType=VARCHAR},
+      mpirce = #{record.mpirce,jdbcType=INTEGER},
+      mnumber = #{record.mnumber,jdbcType=INTEGER},
+      mimageurl = #{record.mimageurl,jdbcType=VARCHAR},
+      mischara = #{record.mischara,jdbcType=INTEGER},
+      mtype = #{record.mtype,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wjw.meal.Pojo.Menu" >
+    update re_menu
+    <set >
+      <if test="mname != null" >
+        mname = #{mname,jdbcType=VARCHAR},
+      </if>
+      <if test="mmateria != null" >
+        mmateria = #{mmateria,jdbcType=VARCHAR},
+      </if>
+      <if test="mpirce != null" >
+        mpirce = #{mpirce,jdbcType=INTEGER},
+      </if>
+      <if test="mnumber != null" >
+        mnumber = #{mnumber,jdbcType=INTEGER},
+      </if>
+      <if test="mimageurl != null" >
+        mimageurl = #{mimageurl,jdbcType=VARCHAR},
+      </if>
+      <if test="mischara != null" >
+        mischara = #{mischara,jdbcType=INTEGER},
+      </if>
+      <if test="mtype != null" >
+        mtype = #{mtype,jdbcType=INTEGER},
+      </if>
+    </set>
+    where mid = #{mid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wjw.meal.Pojo.Menu" >
+    update re_menu
+    set mname = #{mname,jdbcType=VARCHAR},
+      mmateria = #{mmateria,jdbcType=VARCHAR},
+      mpirce = #{mpirce,jdbcType=INTEGER},
+      mnumber = #{mnumber,jdbcType=INTEGER},
+      mimageurl = #{mimageurl,jdbcType=VARCHAR},
+      mischara = #{mischara,jdbcType=INTEGER},
+      mtype = #{mtype,jdbcType=INTEGER}
+    where mid = #{mid,jdbcType=VARCHAR}
+  </update>
+</mapper>
