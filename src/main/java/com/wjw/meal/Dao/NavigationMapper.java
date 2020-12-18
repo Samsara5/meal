@@ -3,8 +3,11 @@ package com.wjw.meal.Dao;
 import com.wjw.meal.Pojo.Navigation;
 import com.wjw.meal.Pojo.NavigationExample;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+@Mapper
 public interface NavigationMapper {
     int countByExample(NavigationExample example);
 

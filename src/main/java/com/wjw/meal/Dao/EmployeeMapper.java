@@ -3,8 +3,11 @@ package com.wjw.meal.Dao;
 import com.wjw.meal.Pojo.Employee;
 import com.wjw.meal.Pojo.EmployeeExample;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+@Mapper
 public interface EmployeeMapper {
     int countByExample(EmployeeExample example);
 

@@ -16,5 +16,5 @@ public interface MenuService {
 
     public void delMenuById(String id);
 
-    public void delMenuByMenuPojo(Menu menu);
+    public void delmenubyids(List<String> ids);
 }

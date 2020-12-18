@@ -51,10 +51,9 @@ public class MenuServiceImpl implements MenuService {
 
     //通过名字删
     @Override
-    public void delMenuByMenuPojo(Menu menu) {
+    public void delmenubyids(List<String> ids) {
         MenuExample example = new MenuExample();
-        example.createCriteria().andMnameEqualTo(menu.getMname());
-        example.createCriteria().andMtypeEqualTo(menu.getMtype());
+        example.createCriteria().andMidIn(ids);
         menuMapper.deleteByExample(example);
     }
 }

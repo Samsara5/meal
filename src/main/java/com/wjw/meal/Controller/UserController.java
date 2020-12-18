@@ -1,9 +1,11 @@
 package com.wjw.meal.Controller;
 
 
+import com.alibaba.fastjson.JSON;
 import com.wjw.meal.Pojo.Message;
 import com.wjw.meal.Pojo.User;
 import com.wjw.meal.Service.UserService;
+import com.wjw.meal.Utils.ExcelUtils;
 import com.wjw.meal.Utils.Token;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -65,8 +68,11 @@ public class UserController {
 
     @ApiOperation(value = "导入Excel模板批量导入用户",notes = "")
     @PostMapping(value = "/importUsersByExcel")
-    public String importUsersByExcel(@RequestParam("file") MultipartFile file){
-        return userService.importUsersByExcel(file);
+    public String importUsersByExcel(@RequestParam("file") MultipartFile file) {
+//        return userService.importUsersByExcel(file);
+        ExcelUtils sheet =  new ExcelUtils(file,"username");
+//        String excelDateByIndex = sheet.getExcelDateByIndex(0, 0);
+        return JSON.toJSONString(sheet.readExcelData());
     }
 
 }

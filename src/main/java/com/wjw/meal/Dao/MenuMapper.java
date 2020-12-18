@@ -3,8 +3,11 @@ package com.wjw.meal.Dao;
 import com.wjw.meal.Pojo.Menu;
 import com.wjw.meal.Pojo.MenuExample;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+@Mapper
 public interface MenuMapper {
     int countByExample(MenuExample example);
 
