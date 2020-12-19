@@ -9,10 +9,13 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.ByteArrayInputStream;
 
 import java.io.InputStream;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Author: 灵枢
@@ -70,24 +73,43 @@ public class ExcelUtils {
         return operateSteps;
     }
 
+    public String transferToString(String originString){
+        String regex="^((\\d+.?\\d+)[Ee]{1}(\\d+))$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher m = pattern.matcher(originString);
+        DecimalFormat df = new DecimalFormat("#.##");
+        originString = df.format(Double.parseDouble(originString));
+        return originString;
+    }
     //打印excel数据
-    public Map<String,Object> readExcelData(){
+    public Map<String,List<String>> readExcelData(){
         //获取行数
-        Map<String,Object> res = new HashMap<>();
-        List<String> rowInfo = new ArrayList<>();
+        int errorow = 0;
+        int errocoloumn = 0;
+        Map<String,List<String>> res = new HashMap<>();
+        List<String> rowInfo;
         int rows = sheet.getPhysicalNumberOfRows();
-        for(int i=0;i<rows;i++){
-            //获取列数
-            XSSFRow row = sheet.getRow(i);
-            int columns = row.getPhysicalNumberOfCells();
-            for(int j=0;j<columns;j++){
-                String cell = row.getCell(j).toString();
-                rowInfo.add(cell);
+        try {
+            for(int i=0;i<rows;i++){
+                errorow = i+1;
+                //获取列数
+                rowInfo = new ArrayList<>();
+                XSSFRow row = sheet.getRow(i);
+                int columns = row.getPhysicalNumberOfCells();
+                for(int j=0;j<columns;j++){
+                    errocoloumn = j+1;
+                    String cell = row.getCell(j).toString();
+                    rowInfo.add(cell);
+                }
+                res.put(String.valueOf(i),rowInfo);
             }
-            res.put(String.valueOf(i),rowInfo);
-            for (int index=0;index<rowInfo.size();index++){
-                rowInfo.remove(index);
-            }
+        }catch (Exception e){
+            e.printStackTrace();
+            String erroMessage = "导入失败，发生于：第"+errorow+"行"+"第"+errocoloumn+"列,请检查数据";
+            List<String> erro = new ArrayList<>();
+            erro.add(erroMessage);
+            res.put("erro",erro);
+            return res;
         }
         return res;
     }

@@ -2,7 +2,6 @@ package com.wjw.meal.Controller;
 
 import com.wjw.meal.Pojo.Employee;
 import com.wjw.meal.Pojo.Message;
-import com.wjw.meal.Pojo.User;
 import com.wjw.meal.Service.EmployeeService;
 import com.wjw.meal.Utils.Token;
 import io.swagger.annotations.Api;
