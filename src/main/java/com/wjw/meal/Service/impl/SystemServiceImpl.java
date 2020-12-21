@@ -8,8 +8,16 @@ import com.wjw.meal.Pojo.Navigation;
 import com.wjw.meal.Pojo.NavigationExample;
 import com.wjw.meal.Service.SystemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +26,9 @@ public class SystemServiceImpl implements SystemService {
 
     @Autowired
     NavigationMapper navigationMapper;
+
+    @Autowired
+    ResourceLoader resourceLoader;
 
     @Override
     public Message getNavigation() {
@@ -34,5 +45,59 @@ public class SystemServiceImpl implements SystemService {
             navigationres.add(object);
         }
         return Message.success().add("navigation",navigationres);
+    }
+
+    @Override
+    public void getEmployeeExcelTemplate(HttpServletResponse response) {
+        try {
+            //设置文件的类型
+            response.setContentType("multipart/form-data");
+            // 确保弹出下载对话框
+            response.setHeader("Content-disposition", "attachment; filename=" + new String("template_employee.xlsx".getBytes("utf-8"), "iso-8859-1"));
+            Resource resource = resourceLoader.getResource("classpath:static" + File.separator +"template_employee.xlsx");
+            Assert.isTrue(resource.exists(), "文件不存在:" + "template_employee.xlsx");
+            InputStream inputStream = resource.getInputStream();
+            OutputStream outputStream = response.getOutputStream();
+            int length;
+            while ((length = inputStream.read()) != -1) {
+                outputStream.write(length);
+            }
+            inputStream.close();
+            outputStream.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void getUserExcelTemplate(HttpServletResponse response) {
+        try {
+            //设置文件的类型
+            response.setContentType("multipart/form-data");
+            // 确保弹出下载对话框
+            response.setHeader("Content-disposition", "attachment; filename=" + new String("template_user.xlsx".getBytes("utf-8"), "iso-8859-1"));
+            Resource resource = resourceLoader.getResource("classpath:static" + File.separator +"template_user.xlsx");
+            Assert.isTrue(resource.exists(), "文件不存在:" + "template_user.xlsx");
+            InputStream inputStream = resource.getInputStream();
+            OutputStream outputStream = response.getOutputStream();
+            int length;
+            while ((length = inputStream.read()) != -1) {
+                outputStream.write(length);
+            }
+            inputStream.close();
+            outputStream.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void getMenuExcelTemplate(HttpServletResponse response) {
+
+    }
+
+    @Override
+    public void getStroeExcelTemplate(HttpServletResponse response) {
+
     }
 }

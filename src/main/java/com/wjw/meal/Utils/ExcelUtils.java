@@ -1,6 +1,8 @@
 package com.wjw.meal.Utils;
 
 
+import org.apache.poi.hssf.usermodel.HSSFDateUtil;
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -10,6 +12,7 @@ import java.io.ByteArrayInputStream;
 
 import java.io.InputStream;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -73,13 +76,48 @@ public class ExcelUtils {
         return operateSteps;
     }
 
-    public String transferToString(String originString){
-        String regex="^((\\d+.?\\d+)[Ee]{1}(\\d+))$";
-        Pattern pattern = Pattern.compile(regex);
-        Matcher m = pattern.matcher(originString);
-        DecimalFormat df = new DecimalFormat("#.##");
-        originString = df.format(Double.parseDouble(originString));
-        return originString;
+    public String verifyCells(Cell cell){
+        if (cell == null) {
+            return null;
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String value = "";
+        switch (cell.getCellType()) {
+            case 0:// 表示数字型和日期类型
+                //如果为时间格式的内容
+                if (HSSFDateUtil.isCellDateFormatted(cell)) {
+                    //注：format格式 yyyy-MM-dd hh:mm:ss 中小时为12小时制，若要24小时制，则把小h变为H即可，yyyy-MM-dd HH:mm:ss
+                    value = sdf.format(HSSFDateUtil.getJavaDate(cell.getNumericCellValue())).toString();
+                    break;
+                } else {
+                    value = String.valueOf(cell.getNumericCellValue());
+                }
+                break;
+            case 1:// 字符串类型
+                value = cell.getStringCellValue();
+                break;
+            case 2:// 公式型
+                try {
+                    value = String.valueOf(cell.getNumericCellValue());
+                } catch (IllegalStateException e) {
+                    value = String.valueOf(cell.getRichStringCellValue());
+                }
+                //value = cell.getCellFormula() + "";
+                break;
+            case 3:// 空值
+                value = "";
+                break;
+            case 4:// 布尔型
+                value = cell.getBooleanCellValue() + "";
+                break;
+            case 5:// 错误
+                value = "非法字符";
+                break;
+            default:
+                value = "未知类型";
+                break;
+        }
+        return value;
     }
     //打印excel数据
     public Map<String,List<String>> readExcelData(){
@@ -98,7 +136,7 @@ public class ExcelUtils {
                 int columns = row.getPhysicalNumberOfCells();
                 for(int j=0;j<columns;j++){
                     errocoloumn = j+1;
-                    String cell = row.getCell(j).toString();
+                    String cell = verifyCells(row.getCell(j));
                     rowInfo.add(cell);
                 }
                 res.put(String.valueOf(i),rowInfo);

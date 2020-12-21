@@ -1,6 +1,7 @@
 package com.wjw.meal.Service;
 
 import com.wjw.meal.Pojo.Menu;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -17,4 +18,6 @@ public interface MenuService {
     public void delMenuById(String id);
 
     public void delmenubyids(List<String> ids);
+
+    void importMenusByExcel(MultipartFile file);
 }

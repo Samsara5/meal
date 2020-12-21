@@ -7,6 +7,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -43,5 +44,25 @@ public class MenuController {
         menuService.delmenubyids(ids);
         return Message.success();
     }
+
+    @ApiOperation(value = "通过id查询菜单")
+    @GetMapping("/getmenusbytype")
+    public Message getMenusbyType(@RequestParam String id){
+        return Message.success().add("menus",menuService.getMenusByMenuType(Integer.valueOf(id)));
+    }
+
+    @ApiOperation(value = "获取所有菜单")
+    @GetMapping("/getallmenus")
+    public Message getAllMenus(){
+        return Message.success().add("menus",menuService.getAllMenus());
+    }
+
+
+    @ApiOperation(value = "导入Excel批量导入菜单")
+    @PostMapping("importmenusbyexcel")
+    public void importMenusByExcel(@RequestParam("file") MultipartFile file){
+        menuService.importMenusByExcel(file);
+    }
+
 
 }
