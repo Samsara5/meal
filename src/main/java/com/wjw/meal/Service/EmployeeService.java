@@ -11,6 +11,8 @@ public interface EmployeeService {
 
     List<Employee> getAllEmployee();
 
+    Employee getEmployeeByName(String name);
+
     void AddEmployee(Employee employee);
 
     Map<String,String> getPassword(String username, String phone, String name);

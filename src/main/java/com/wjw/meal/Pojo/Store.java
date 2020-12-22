@@ -9,11 +9,13 @@ public class Store {
 
     private Integer stroenumber;
 
+    private String unit;
+
     private Date stroetime;
 
     private Integer stroestate;
 
-    private Integer storeman;
+    private String storeman;
 
     public String getStroeid() {
         return stroeid;
@@ -39,6 +41,14 @@ public class Store {
         this.stroenumber = stroenumber;
     }
 
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit == null ? null : unit.trim();
+    }
+
     public Date getStroetime() {
         return stroetime;
     }
@@ -55,11 +65,11 @@ public class Store {
         this.stroestate = stroestate;
     }
 
-    public Integer getStoreman() {
+    public String getStoreman() {
         return storeman;
     }
 
-    public void setStoreman(Integer storeman) {
-        this.storeman = storeman;
+    public void setStoreman(String storeman) {
+        this.storeman = storeman == null ? null : storeman.trim();
     }
 }

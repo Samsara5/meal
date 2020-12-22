@@ -1,5 +1,7 @@
 package com.wjw.meal.Service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.wjw.meal.Dao.UserMapper;
 import com.wjw.meal.Pojo.User;
 import com.wjw.meal.Pojo.UserExample;
@@ -21,8 +23,11 @@ public class UserServiceImpl implements UserService {
     UserMapper userMapper;
 
     @Override
-    public List<User> getAllUser() {
-        return userMapper.selectByExample(null);
+    public PageInfo getAllUsersByPageNum(String topage,String pagesize) {
+        PageHelper.startPage(Integer.valueOf(topage),Integer.valueOf(pagesize));
+        List<User> userList = userMapper.selectByExample(null);
+        PageInfo  pageInfo =  new PageInfo(userList);
+        return pageInfo;
     }
 
     public Boolean verifyUser(String username, String password){

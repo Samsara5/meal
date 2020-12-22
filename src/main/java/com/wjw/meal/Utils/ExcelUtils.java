@@ -20,12 +20,6 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * Author: 灵枢
- * Date: 2018/12/05
- * Time: 17:21
- * Description:读取Excel数据
- */
 public class ExcelUtils {
     private XSSFSheet sheet;
 

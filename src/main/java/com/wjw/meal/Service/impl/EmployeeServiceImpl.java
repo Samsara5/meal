@@ -48,6 +48,14 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    public Employee getEmployeeByName(String name) {
+        EmployeeExample example = new EmployeeExample();
+        example.createCriteria().andEnameEqualTo(name);
+        return employeeMapper.selectByExample(example).get(0);
+    }
+
+
+    @Override
     public void AddEmployee(Employee employee) {
         employee.setEid(UUID.randomUUID().toString());
         employeeMapper.insert(employee);
@@ -108,7 +116,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             employee.setSalary(cloumdata.get(8));
             AddEmployee(employee);
         }
-        return null;
+        return "读取成功";
     }
 
 }

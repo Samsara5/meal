@@ -53,8 +53,8 @@ public class UserController {
 
     @ApiOperation(value = "获取所有用户信息",notes = "")
     @GetMapping(value = "/getAllUser")
-    public List<User> getAllUsers(){
-        return userService.getAllUser();
+    public Message getAllUsersByPageNum(@RequestParam(value = "pn",defaultValue = "1")String topage,@RequestParam(value = "pagenum",defaultValue = "5")String pagesize){
+        return Message.success().add("userinfo",userService.getAllUsersByPageNum(topage,pagesize));
     }
 
     @ApiOperation(value = "通过username更新用户",notes = "")

@@ -42,4 +42,16 @@ public class StoreController {
         storeService.delStoresByIds(ids);
         return Message.success();
     }
+    @ApiOperation("修改仓储信息")
+    @PutMapping("/updatestore")
+    public Message updateStore(@RequestBody Store store){
+        storeService.updateStrore(store);
+        return Message.success();
+    }
+    @ApiOperation("查询仓库内所有材料")
+    @GetMapping("/getallstores")
+    public Message getAllStore(){
+        return Message.success().add("stores",storeService.getAllStrores());
+    }
+
 }

@@ -305,6 +305,76 @@ public class StoreExample {
             return (Criteria) this;
         }
 
+        public Criteria andUnitIsNull() {
+            addCriterion("unit is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitIsNotNull() {
+            addCriterion("unit is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitEqualTo(String value) {
+            addCriterion("unit =", value, "unit");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitNotEqualTo(String value) {
+            addCriterion("unit <>", value, "unit");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitGreaterThan(String value) {
+            addCriterion("unit >", value, "unit");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitGreaterThanOrEqualTo(String value) {
+            addCriterion("unit >=", value, "unit");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitLessThan(String value) {
+            addCriterion("unit <", value, "unit");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitLessThanOrEqualTo(String value) {
+            addCriterion("unit <=", value, "unit");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitLike(String value) {
+            addCriterion("unit like", value, "unit");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitNotLike(String value) {
+            addCriterion("unit not like", value, "unit");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitIn(List<String> values) {
+            addCriterion("unit in", values, "unit");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitNotIn(List<String> values) {
+            addCriterion("unit not in", values, "unit");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitBetween(String value1, String value2) {
+            addCriterion("unit between", value1, value2, "unit");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnitNotBetween(String value1, String value2) {
+            addCriterion("unit not between", value1, value2, "unit");
+            return (Criteria) this;
+        }
+
         public Criteria andStroetimeIsNull() {
             addCriterion("stroetime is null");
             return (Criteria) this;
@@ -435,52 +505,62 @@ public class StoreExample {
             return (Criteria) this;
         }
 
-        public Criteria andStoremanEqualTo(Integer value) {
+        public Criteria andStoremanEqualTo(String value) {
             addCriterion("storeman =", value, "storeman");
             return (Criteria) this;
         }
 
-        public Criteria andStoremanNotEqualTo(Integer value) {
+        public Criteria andStoremanNotEqualTo(String value) {
             addCriterion("storeman <>", value, "storeman");
             return (Criteria) this;
         }
 
-        public Criteria andStoremanGreaterThan(Integer value) {
+        public Criteria andStoremanGreaterThan(String value) {
             addCriterion("storeman >", value, "storeman");
             return (Criteria) this;
         }
 
-        public Criteria andStoremanGreaterThanOrEqualTo(Integer value) {
+        public Criteria andStoremanGreaterThanOrEqualTo(String value) {
             addCriterion("storeman >=", value, "storeman");
             return (Criteria) this;
         }
 
-        public Criteria andStoremanLessThan(Integer value) {
+        public Criteria andStoremanLessThan(String value) {
             addCriterion("storeman <", value, "storeman");
             return (Criteria) this;
         }
 
-        public Criteria andStoremanLessThanOrEqualTo(Integer value) {
+        public Criteria andStoremanLessThanOrEqualTo(String value) {
             addCriterion("storeman <=", value, "storeman");
             return (Criteria) this;
         }
 
-        public Criteria andStoremanIn(List<Integer> values) {
+        public Criteria andStoremanLike(String value) {
+            addCriterion("storeman like", value, "storeman");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoremanNotLike(String value) {
+            addCriterion("storeman not like", value, "storeman");
+            return (Criteria) this;
+        }
+
+        public Criteria andStoremanIn(List<String> values) {
             addCriterion("storeman in", values, "storeman");
             return (Criteria) this;
         }
 
-        public Criteria andStoremanNotIn(List<Integer> values) {
+        public Criteria andStoremanNotIn(List<String> values) {
             addCriterion("storeman not in", values, "storeman");
             return (Criteria) this;
         }
 
-        public Criteria andStoremanBetween(Integer value1, Integer value2) {
+        public Criteria andStoremanBetween(String value1, String value2) {
             addCriterion("storeman between", value1, value2, "storeman");
             return (Criteria) this;
         }
 
-        public Criteria andStoremanNotBetween(Integer value1, Integer value2) {
+        public Criteria andStoremanNotBetween(String value1, String value2) {
             addCriterion("storeman not between", value1, value2, "storeman");
             return (Criteria) this;
         }

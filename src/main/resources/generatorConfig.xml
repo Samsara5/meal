@@ -46,6 +46,7 @@
 <!--         <table tableName="re_user" domainObjectName="User"></table>-->
 <!--         <table tableName="re_employee" domainObjectName="Employee"></table>-->
 <!--         <table tableName="re_navigation" domainObjectName="Navigation"></table>-->
-         <table tableName="re_menu" domainObjectName="Menu"></table>
+<!--         <table tableName="re_menu" domainObjectName="Menu"></table>-->
+        <table tableName="re_store" domainObjectName="Store"></table>
     </context>
 </generatorConfiguration>
