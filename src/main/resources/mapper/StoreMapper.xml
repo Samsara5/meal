@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.wjw.meal.Pojo.Store" >
     <id column="stroeid" property="stroeid" jdbcType="VARCHAR" />
     <result column="stroename" property="stroename" jdbcType="VARCHAR" />
-    <result column="stroenumber" property="stroenumber" jdbcType="INTEGER" />
+    <result column="stroenumber" property="stroenumber" jdbcType="VARCHAR" />
     <result column="unit" property="unit" jdbcType="VARCHAR" />
     <result column="stroetime" property="stroetime" jdbcType="TIMESTAMP" />
     <result column="stroestate" property="stroestate" jdbcType="INTEGER" />
@@ -105,7 +105,7 @@
     insert into re_store (stroeid, stroename, stroenumber, 
       unit, stroetime, stroestate, 
       storeman)
-    values (#{stroeid,jdbcType=VARCHAR}, #{stroename,jdbcType=VARCHAR}, #{stroenumber,jdbcType=INTEGER}, 
+    values (#{stroeid,jdbcType=VARCHAR}, #{stroename,jdbcType=VARCHAR}, #{stroenumber,jdbcType=VARCHAR}, 
       #{unit,jdbcType=VARCHAR}, #{stroetime,jdbcType=TIMESTAMP}, #{stroestate,jdbcType=INTEGER}, 
       #{storeman,jdbcType=VARCHAR})
   </insert>
@@ -142,7 +142,7 @@
         #{stroename,jdbcType=VARCHAR},
       </if>
       <if test="stroenumber != null" >
-        #{stroenumber,jdbcType=INTEGER},
+        #{stroenumber,jdbcType=VARCHAR},
       </if>
       <if test="unit != null" >
         #{unit,jdbcType=VARCHAR},
@@ -174,7 +174,7 @@
         stroename = #{record.stroename,jdbcType=VARCHAR},
       </if>
       <if test="record.stroenumber != null" >
-        stroenumber = #{record.stroenumber,jdbcType=INTEGER},
+        stroenumber = #{record.stroenumber,jdbcType=VARCHAR},
       </if>
       <if test="record.unit != null" >
         unit = #{record.unit,jdbcType=VARCHAR},
@@ -197,7 +197,7 @@
     update re_store
     set stroeid = #{record.stroeid,jdbcType=VARCHAR},
       stroename = #{record.stroename,jdbcType=VARCHAR},
-      stroenumber = #{record.stroenumber,jdbcType=INTEGER},
+      stroenumber = #{record.stroenumber,jdbcType=VARCHAR},
       unit = #{record.unit,jdbcType=VARCHAR},
       stroetime = #{record.stroetime,jdbcType=TIMESTAMP},
       stroestate = #{record.stroestate,jdbcType=INTEGER},
@@ -213,7 +213,7 @@
         stroename = #{stroename,jdbcType=VARCHAR},
       </if>
       <if test="stroenumber != null" >
-        stroenumber = #{stroenumber,jdbcType=INTEGER},
+        stroenumber = #{stroenumber,jdbcType=VARCHAR},
       </if>
       <if test="unit != null" >
         unit = #{unit,jdbcType=VARCHAR},
@@ -233,7 +233,7 @@
   <update id="updateByPrimaryKey" parameterType="com.wjw.meal.Pojo.Store" >
     update re_store
     set stroename = #{stroename,jdbcType=VARCHAR},
-      stroenumber = #{stroenumber,jdbcType=INTEGER},
+      stroenumber = #{stroenumber,jdbcType=VARCHAR},
       unit = #{unit,jdbcType=VARCHAR},
       stroetime = #{stroetime,jdbcType=TIMESTAMP},
       stroestate = #{stroestate,jdbcType=INTEGER},

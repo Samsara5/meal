@@ -7,7 +7,7 @@ public class Store {
 
     private String stroename;
 
-    private Integer stroenumber;
+    private String stroenumber;
 
     private String unit;
 
@@ -33,12 +33,12 @@ public class Store {
         this.stroename = stroename == null ? null : stroename.trim();
     }
 
-    public Integer getStroenumber() {
+    public String getStroenumber() {
         return stroenumber;
     }
 
-    public void setStroenumber(Integer stroenumber) {
-        this.stroenumber = stroenumber;
+    public void setStroenumber(String stroenumber) {
+        this.stroenumber = stroenumber == null ? null : stroenumber.trim();
     }
 
     public String getUnit() {

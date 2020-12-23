@@ -255,52 +255,62 @@ public class StoreExample {
             return (Criteria) this;
         }
 
-        public Criteria andStroenumberEqualTo(Integer value) {
+        public Criteria andStroenumberEqualTo(String value) {
             addCriterion("stroenumber =", value, "stroenumber");
             return (Criteria) this;
         }
 
-        public Criteria andStroenumberNotEqualTo(Integer value) {
+        public Criteria andStroenumberNotEqualTo(String value) {
             addCriterion("stroenumber <>", value, "stroenumber");
             return (Criteria) this;
         }
 
-        public Criteria andStroenumberGreaterThan(Integer value) {
+        public Criteria andStroenumberGreaterThan(String value) {
             addCriterion("stroenumber >", value, "stroenumber");
             return (Criteria) this;
         }
 
-        public Criteria andStroenumberGreaterThanOrEqualTo(Integer value) {
+        public Criteria andStroenumberGreaterThanOrEqualTo(String value) {
             addCriterion("stroenumber >=", value, "stroenumber");
             return (Criteria) this;
         }
 
-        public Criteria andStroenumberLessThan(Integer value) {
+        public Criteria andStroenumberLessThan(String value) {
             addCriterion("stroenumber <", value, "stroenumber");
             return (Criteria) this;
         }
 
-        public Criteria andStroenumberLessThanOrEqualTo(Integer value) {
+        public Criteria andStroenumberLessThanOrEqualTo(String value) {
             addCriterion("stroenumber <=", value, "stroenumber");
             return (Criteria) this;
         }
 
-        public Criteria andStroenumberIn(List<Integer> values) {
+        public Criteria andStroenumberLike(String value) {
+            addCriterion("stroenumber like", value, "stroenumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andStroenumberNotLike(String value) {
+            addCriterion("stroenumber not like", value, "stroenumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andStroenumberIn(List<String> values) {
             addCriterion("stroenumber in", values, "stroenumber");
             return (Criteria) this;
         }
 
-        public Criteria andStroenumberNotIn(List<Integer> values) {
+        public Criteria andStroenumberNotIn(List<String> values) {
             addCriterion("stroenumber not in", values, "stroenumber");
             return (Criteria) this;
         }
 
-        public Criteria andStroenumberBetween(Integer value1, Integer value2) {
+        public Criteria andStroenumberBetween(String value1, String value2) {
             addCriterion("stroenumber between", value1, value2, "stroenumber");
             return (Criteria) this;
         }
 
-        public Criteria andStroenumberNotBetween(Integer value1, Integer value2) {
+        public Criteria andStroenumberNotBetween(String value1, String value2) {
             addCriterion("stroenumber not between", value1, value2, "stroenumber");
             return (Criteria) this;
         }
