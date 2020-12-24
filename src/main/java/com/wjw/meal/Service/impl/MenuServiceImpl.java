@@ -2,18 +2,19 @@ package com.wjw.meal.Service.impl;
 
 import com.wjw.meal.Dao.MenuMapper;
 import com.wjw.meal.Dao.MenuTypeMapper;
-import com.wjw.meal.Pojo.Menu;
-import com.wjw.meal.Pojo.MenuExample;
-import com.wjw.meal.Pojo.MenuType;
-import com.wjw.meal.Pojo.MenuTypeExample;
+import com.wjw.meal.Dao.StoreMapper;
+import com.wjw.meal.Pojo.*;
 import com.wjw.meal.Service.MenuService;
+import com.wjw.meal.Utils.ExcelUtils;
+import com.wjw.meal.Utils.ImageGender;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service
 public class MenuServiceImpl implements MenuService {
@@ -23,6 +24,9 @@ public class MenuServiceImpl implements MenuService {
 
     @Autowired
     MenuTypeMapper menuTypeMapper;
+
+    @Autowired
+    StoreMapper storeMapper;
 
     @Override
     public List<Menu> getMenusByMenuType(Integer typeId) {
@@ -38,12 +42,12 @@ public class MenuServiceImpl implements MenuService {
         type.createCriteria().andMlevelEqualTo(3);
         type.createCriteria().andMpidIn(subsubmenus);
         List<MenuType> items = menuTypeMapper.selectByExample(type);
-        List<Integer> itemsid = new ArrayList<>();
+        List<String> itemsid = new ArrayList<>();
         for (MenuType m:items){
-            itemsid.add(m.getMtid());
+            itemsid.add(String.valueOf(m.getMtid()));
         }
         MenuExample example = new MenuExample();
-        example.createCriteria().andMtypeIn(itemsid);
+        example.createCriteria().andMidIn(itemsid);
         return menuMapper.selectByExample(example);
     }
 
@@ -82,6 +86,40 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public void importMenusByExcel(MultipartFile file) {
-
+        ExcelUtils sheet = new ExcelUtils(file,"menu");
+        Map<String, List<String>> sheetinfo = sheet.readExcelData();
+        for (int i=1;i<sheetinfo.size();i++) {
+            List<String> cloumdata = sheetinfo.get(String.valueOf(i));
+            Menu menu = new Menu();
+            //生成menu的Id
+            menu.setMid(UUID.randomUUID().toString());
+            //菜名
+            menu.setMname(cloumdata.get(0));
+            //仓储材料Id
+            StoreExample example = new StoreExample();
+            example.createCriteria().andStroenameEqualTo(cloumdata.get(1));
+            Store store = storeMapper.selectByExample(example).get(0);
+            menu.setMmateria(store.getStroeid());
+            //剩余份数
+            menu.setMnumber(store.getStroenumber());
+            //价格
+            menu.setMpirce(cloumdata.get(2));
+            //是否特色菜
+            menu.setMischara(Integer.valueOf(cloumdata.get(4)) == 1 ? 1 : 0);
+            //所属种类
+            MenuTypeExample menuTypeExample = new MenuTypeExample();
+            menuTypeExample.createCriteria().andMtnameEqualTo(cloumdata.get(5));
+            MenuType menuType = menuTypeMapper.selectByExample(menuTypeExample).get(0);
+            menu.setMtype(menuType.getMtid());
+            //生成图片并将图片url存入数据库
+            try {
+                ImageGender.generateImg(menu.getMname(),menu.getMid());
+            }catch (Exception e){
+                e.printStackTrace();
+                Assert.isTrue(true,"生成图片错误!");
+            }
+            menu.setMimageurl("D://menuImage/"+menu.getMid()+".jpg");
+            addMenu(menu);
+        }
     }
 }

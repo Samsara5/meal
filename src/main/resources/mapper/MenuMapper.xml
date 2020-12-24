@@ -5,11 +5,13 @@
     <id column="mid" property="mid" jdbcType="VARCHAR" />
     <result column="mname" property="mname" jdbcType="VARCHAR" />
     <result column="mmateria" property="mmateria" jdbcType="VARCHAR" />
-    <result column="mpirce" property="mpirce" jdbcType="INTEGER" />
-    <result column="mnumber" property="mnumber" jdbcType="INTEGER" />
-    <result column="mimageurl" property="mimageurl" jdbcType="VARCHAR" />
+    <result column="mpirce" property="mpirce" jdbcType="VARCHAR" />
+    <result column="mnumber" property="mnumber" jdbcType="VARCHAR" />
     <result column="mischara" property="mischara" jdbcType="INTEGER" />
     <result column="mtype" property="mtype" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.wjw.meal.Pojo.Menu" extends="BaseResultMap" >
+    <result column="mimageurl" property="mimageurl" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -70,8 +72,27 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    mid, mname, mmateria, mpirce, mnumber, mimageurl, mischara, mtype
+    mid, mname, mmateria, mpirce, mnumber, mischara, mtype
   </sql>
+  <sql id="Blob_Column_List" >
+    mimageurl
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.wjw.meal.Pojo.MenuExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from re_menu
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.wjw.meal.Pojo.MenuExample" >
     select
     <if test="distinct" >
@@ -86,9 +107,11 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
     from re_menu
     where mid = #{mid,jdbcType=VARCHAR}
   </select>
@@ -104,11 +127,11 @@
   </delete>
   <insert id="insert" parameterType="com.wjw.meal.Pojo.Menu" >
     insert into re_menu (mid, mname, mmateria, 
-      mpirce, mnumber, mimageurl, 
-      mischara, mtype)
+      mpirce, mnumber, mischara, 
+      mtype, mimageurl)
     values (#{mid,jdbcType=VARCHAR}, #{mname,jdbcType=VARCHAR}, #{mmateria,jdbcType=VARCHAR}, 
-      #{mpirce,jdbcType=INTEGER}, #{mnumber,jdbcType=INTEGER}, #{mimageurl,jdbcType=VARCHAR}, 
-      #{mischara,jdbcType=INTEGER}, #{mtype,jdbcType=INTEGER})
+      #{mpirce,jdbcType=VARCHAR}, #{mnumber,jdbcType=VARCHAR}, #{mischara,jdbcType=INTEGER}, 
+      #{mtype,jdbcType=INTEGER}, #{mimageurl,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.wjw.meal.Pojo.Menu" >
     insert into re_menu
@@ -128,14 +151,14 @@
       <if test="mnumber != null" >
         mnumber,
       </if>
-      <if test="mimageurl != null" >
-        mimageurl,
-      </if>
       <if test="mischara != null" >
         mischara,
       </if>
       <if test="mtype != null" >
         mtype,
+      </if>
+      <if test="mimageurl != null" >
+        mimageurl,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -149,19 +172,19 @@
         #{mmateria,jdbcType=VARCHAR},
       </if>
       <if test="mpirce != null" >
-        #{mpirce,jdbcType=INTEGER},
+        #{mpirce,jdbcType=VARCHAR},
       </if>
       <if test="mnumber != null" >
-        #{mnumber,jdbcType=INTEGER},
-      </if>
-      <if test="mimageurl != null" >
-        #{mimageurl,jdbcType=VARCHAR},
+        #{mnumber,jdbcType=VARCHAR},
       </if>
       <if test="mischara != null" >
         #{mischara,jdbcType=INTEGER},
       </if>
       <if test="mtype != null" >
         #{mtype,jdbcType=INTEGER},
+      </if>
+      <if test="mimageurl != null" >
+        #{mimageurl,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -184,13 +207,10 @@
         mmateria = #{record.mmateria,jdbcType=VARCHAR},
       </if>
       <if test="record.mpirce != null" >
-        mpirce = #{record.mpirce,jdbcType=INTEGER},
+        mpirce = #{record.mpirce,jdbcType=VARCHAR},
       </if>
       <if test="record.mnumber != null" >
-        mnumber = #{record.mnumber,jdbcType=INTEGER},
-      </if>
-      <if test="record.mimageurl != null" >
-        mimageurl = #{record.mimageurl,jdbcType=VARCHAR},
+        mnumber = #{record.mnumber,jdbcType=VARCHAR},
       </if>
       <if test="record.mischara != null" >
         mischara = #{record.mischara,jdbcType=INTEGER},
@@ -198,7 +218,24 @@
       <if test="record.mtype != null" >
         mtype = #{record.mtype,jdbcType=INTEGER},
       </if>
+      <if test="record.mimageurl != null" >
+        mimageurl = #{record.mimageurl,jdbcType=LONGVARCHAR},
+      </if>
     </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update re_menu
+    set mid = #{record.mid,jdbcType=VARCHAR},
+      mname = #{record.mname,jdbcType=VARCHAR},
+      mmateria = #{record.mmateria,jdbcType=VARCHAR},
+      mpirce = #{record.mpirce,jdbcType=VARCHAR},
+      mnumber = #{record.mnumber,jdbcType=VARCHAR},
+      mischara = #{record.mischara,jdbcType=INTEGER},
+      mtype = #{record.mtype,jdbcType=INTEGER},
+      mimageurl = #{record.mimageurl,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -208,9 +245,8 @@
     set mid = #{record.mid,jdbcType=VARCHAR},
       mname = #{record.mname,jdbcType=VARCHAR},
       mmateria = #{record.mmateria,jdbcType=VARCHAR},
-      mpirce = #{record.mpirce,jdbcType=INTEGER},
-      mnumber = #{record.mnumber,jdbcType=INTEGER},
-      mimageurl = #{record.mimageurl,jdbcType=VARCHAR},
+      mpirce = #{record.mpirce,jdbcType=VARCHAR},
+      mnumber = #{record.mnumber,jdbcType=VARCHAR},
       mischara = #{record.mischara,jdbcType=INTEGER},
       mtype = #{record.mtype,jdbcType=INTEGER}
     <if test="_parameter != null" >
@@ -227,13 +263,10 @@
         mmateria = #{mmateria,jdbcType=VARCHAR},
       </if>
       <if test="mpirce != null" >
-        mpirce = #{mpirce,jdbcType=INTEGER},
+        mpirce = #{mpirce,jdbcType=VARCHAR},
       </if>
       <if test="mnumber != null" >
-        mnumber = #{mnumber,jdbcType=INTEGER},
-      </if>
-      <if test="mimageurl != null" >
-        mimageurl = #{mimageurl,jdbcType=VARCHAR},
+        mnumber = #{mnumber,jdbcType=VARCHAR},
       </if>
       <if test="mischara != null" >
         mischara = #{mischara,jdbcType=INTEGER},
@@ -241,16 +274,29 @@
       <if test="mtype != null" >
         mtype = #{mtype,jdbcType=INTEGER},
       </if>
+      <if test="mimageurl != null" >
+        mimageurl = #{mimageurl,jdbcType=LONGVARCHAR},
+      </if>
     </set>
+    where mid = #{mid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.wjw.meal.Pojo.Menu" >
+    update re_menu
+    set mname = #{mname,jdbcType=VARCHAR},
+      mmateria = #{mmateria,jdbcType=VARCHAR},
+      mpirce = #{mpirce,jdbcType=VARCHAR},
+      mnumber = #{mnumber,jdbcType=VARCHAR},
+      mischara = #{mischara,jdbcType=INTEGER},
+      mtype = #{mtype,jdbcType=INTEGER},
+      mimageurl = #{mimageurl,jdbcType=LONGVARCHAR}
     where mid = #{mid,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.wjw.meal.Pojo.Menu" >
     update re_menu
     set mname = #{mname,jdbcType=VARCHAR},
       mmateria = #{mmateria,jdbcType=VARCHAR},
-      mpirce = #{mpirce,jdbcType=INTEGER},
-      mnumber = #{mnumber,jdbcType=INTEGER},
-      mimageurl = #{mimageurl,jdbcType=VARCHAR},
+      mpirce = #{mpirce,jdbcType=VARCHAR},
+      mnumber = #{mnumber,jdbcType=VARCHAR},
       mischara = #{mischara,jdbcType=INTEGER},
       mtype = #{mtype,jdbcType=INTEGER}
     where mid = #{mid,jdbcType=VARCHAR}

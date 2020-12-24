@@ -324,52 +324,62 @@ public class MenuExample {
             return (Criteria) this;
         }
 
-        public Criteria andMpirceEqualTo(Integer value) {
+        public Criteria andMpirceEqualTo(String value) {
             addCriterion("mpirce =", value, "mpirce");
             return (Criteria) this;
         }
 
-        public Criteria andMpirceNotEqualTo(Integer value) {
+        public Criteria andMpirceNotEqualTo(String value) {
             addCriterion("mpirce <>", value, "mpirce");
             return (Criteria) this;
         }
 
-        public Criteria andMpirceGreaterThan(Integer value) {
+        public Criteria andMpirceGreaterThan(String value) {
             addCriterion("mpirce >", value, "mpirce");
             return (Criteria) this;
         }
 
-        public Criteria andMpirceGreaterThanOrEqualTo(Integer value) {
+        public Criteria andMpirceGreaterThanOrEqualTo(String value) {
             addCriterion("mpirce >=", value, "mpirce");
             return (Criteria) this;
         }
 
-        public Criteria andMpirceLessThan(Integer value) {
+        public Criteria andMpirceLessThan(String value) {
             addCriterion("mpirce <", value, "mpirce");
             return (Criteria) this;
         }
 
-        public Criteria andMpirceLessThanOrEqualTo(Integer value) {
+        public Criteria andMpirceLessThanOrEqualTo(String value) {
             addCriterion("mpirce <=", value, "mpirce");
             return (Criteria) this;
         }
 
-        public Criteria andMpirceIn(List<Integer> values) {
+        public Criteria andMpirceLike(String value) {
+            addCriterion("mpirce like", value, "mpirce");
+            return (Criteria) this;
+        }
+
+        public Criteria andMpirceNotLike(String value) {
+            addCriterion("mpirce not like", value, "mpirce");
+            return (Criteria) this;
+        }
+
+        public Criteria andMpirceIn(List<String> values) {
             addCriterion("mpirce in", values, "mpirce");
             return (Criteria) this;
         }
 
-        public Criteria andMpirceNotIn(List<Integer> values) {
+        public Criteria andMpirceNotIn(List<String> values) {
             addCriterion("mpirce not in", values, "mpirce");
             return (Criteria) this;
         }
 
-        public Criteria andMpirceBetween(Integer value1, Integer value2) {
+        public Criteria andMpirceBetween(String value1, String value2) {
             addCriterion("mpirce between", value1, value2, "mpirce");
             return (Criteria) this;
         }
 
-        public Criteria andMpirceNotBetween(Integer value1, Integer value2) {
+        public Criteria andMpirceNotBetween(String value1, String value2) {
             addCriterion("mpirce not between", value1, value2, "mpirce");
             return (Criteria) this;
         }
@@ -384,123 +394,63 @@ public class MenuExample {
             return (Criteria) this;
         }
 
-        public Criteria andMnumberEqualTo(Integer value) {
+        public Criteria andMnumberEqualTo(String value) {
             addCriterion("mnumber =", value, "mnumber");
             return (Criteria) this;
         }
 
-        public Criteria andMnumberNotEqualTo(Integer value) {
+        public Criteria andMnumberNotEqualTo(String value) {
             addCriterion("mnumber <>", value, "mnumber");
             return (Criteria) this;
         }
 
-        public Criteria andMnumberGreaterThan(Integer value) {
+        public Criteria andMnumberGreaterThan(String value) {
             addCriterion("mnumber >", value, "mnumber");
             return (Criteria) this;
         }
 
-        public Criteria andMnumberGreaterThanOrEqualTo(Integer value) {
+        public Criteria andMnumberGreaterThanOrEqualTo(String value) {
             addCriterion("mnumber >=", value, "mnumber");
             return (Criteria) this;
         }
 
-        public Criteria andMnumberLessThan(Integer value) {
+        public Criteria andMnumberLessThan(String value) {
             addCriterion("mnumber <", value, "mnumber");
             return (Criteria) this;
         }
 
-        public Criteria andMnumberLessThanOrEqualTo(Integer value) {
+        public Criteria andMnumberLessThanOrEqualTo(String value) {
             addCriterion("mnumber <=", value, "mnumber");
             return (Criteria) this;
         }
 
-        public Criteria andMnumberIn(List<Integer> values) {
+        public Criteria andMnumberLike(String value) {
+            addCriterion("mnumber like", value, "mnumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andMnumberNotLike(String value) {
+            addCriterion("mnumber not like", value, "mnumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andMnumberIn(List<String> values) {
             addCriterion("mnumber in", values, "mnumber");
             return (Criteria) this;
         }
 
-        public Criteria andMnumberNotIn(List<Integer> values) {
+        public Criteria andMnumberNotIn(List<String> values) {
             addCriterion("mnumber not in", values, "mnumber");
             return (Criteria) this;
         }
 
-        public Criteria andMnumberBetween(Integer value1, Integer value2) {
+        public Criteria andMnumberBetween(String value1, String value2) {
             addCriterion("mnumber between", value1, value2, "mnumber");
             return (Criteria) this;
         }
 
-        public Criteria andMnumberNotBetween(Integer value1, Integer value2) {
+        public Criteria andMnumberNotBetween(String value1, String value2) {
             addCriterion("mnumber not between", value1, value2, "mnumber");
-            return (Criteria) this;
-        }
-
-        public Criteria andMimageurlIsNull() {
-            addCriterion("mimageurl is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andMimageurlIsNotNull() {
-            addCriterion("mimageurl is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andMimageurlEqualTo(String value) {
-            addCriterion("mimageurl =", value, "mimageurl");
-            return (Criteria) this;
-        }
-
-        public Criteria andMimageurlNotEqualTo(String value) {
-            addCriterion("mimageurl <>", value, "mimageurl");
-            return (Criteria) this;
-        }
-
-        public Criteria andMimageurlGreaterThan(String value) {
-            addCriterion("mimageurl >", value, "mimageurl");
-            return (Criteria) this;
-        }
-
-        public Criteria andMimageurlGreaterThanOrEqualTo(String value) {
-            addCriterion("mimageurl >=", value, "mimageurl");
-            return (Criteria) this;
-        }
-
-        public Criteria andMimageurlLessThan(String value) {
-            addCriterion("mimageurl <", value, "mimageurl");
-            return (Criteria) this;
-        }
-
-        public Criteria andMimageurlLessThanOrEqualTo(String value) {
-            addCriterion("mimageurl <=", value, "mimageurl");
-            return (Criteria) this;
-        }
-
-        public Criteria andMimageurlLike(String value) {
-            addCriterion("mimageurl like", value, "mimageurl");
-            return (Criteria) this;
-        }
-
-        public Criteria andMimageurlNotLike(String value) {
-            addCriterion("mimageurl not like", value, "mimageurl");
-            return (Criteria) this;
-        }
-
-        public Criteria andMimageurlIn(List<String> values) {
-            addCriterion("mimageurl in", values, "mimageurl");
-            return (Criteria) this;
-        }
-
-        public Criteria andMimageurlNotIn(List<String> values) {
-            addCriterion("mimageurl not in", values, "mimageurl");
-            return (Criteria) this;
-        }
-
-        public Criteria andMimageurlBetween(String value1, String value2) {
-            addCriterion("mimageurl between", value1, value2, "mimageurl");
-            return (Criteria) this;
-        }
-
-        public Criteria andMimageurlNotBetween(String value1, String value2) {
-            addCriterion("mimageurl not between", value1, value2, "mimageurl");
             return (Criteria) this;
         }
 

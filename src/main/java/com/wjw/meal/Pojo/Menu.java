@@ -7,15 +7,15 @@ public class Menu {
 
     private String mmateria;
 
-    private Integer mpirce;
+    private String mpirce;
 
-    private Integer mnumber;
-
-    private String mimageurl;
+    private String mnumber;
 
     private Integer mischara;
 
     private Integer mtype;
+
+    private String mimageurl;
 
     public String getMid() {
         return mid;
@@ -41,28 +41,20 @@ public class Menu {
         this.mmateria = mmateria == null ? null : mmateria.trim();
     }
 
-    public Integer getMpirce() {
+    public String getMpirce() {
         return mpirce;
     }
 
-    public void setMpirce(Integer mpirce) {
-        this.mpirce = mpirce;
+    public void setMpirce(String mpirce) {
+        this.mpirce = mpirce == null ? null : mpirce.trim();
     }
 
-    public Integer getMnumber() {
+    public String getMnumber() {
         return mnumber;
     }
 
-    public void setMnumber(Integer mnumber) {
-        this.mnumber = mnumber;
-    }
-
-    public String getMimageurl() {
-        return mimageurl;
-    }
-
-    public void setMimageurl(String mimageurl) {
-        this.mimageurl = mimageurl == null ? null : mimageurl.trim();
+    public void setMnumber(String mnumber) {
+        this.mnumber = mnumber == null ? null : mnumber.trim();
     }
 
     public Integer getMischara() {
@@ -79,5 +71,13 @@ public class Menu {
 
     public void setMtype(Integer mtype) {
         this.mtype = mtype;
+    }
+
+    public String getMimageurl() {
+        return mimageurl;
+    }
+
+    public void setMimageurl(String mimageurl) {
+        this.mimageurl = mimageurl == null ? null : mimageurl.trim();
     }
 }
