@@ -5,7 +5,7 @@
 <generatorConfiguration>
     <properties resource="generator.properties"></properties>
     <!-- 配置数据库连接信息 -->
-    <classPathEntry  location="D:\\Users\\wujiawei\\.m2\repository\\mysql\\mysql-connector-java\\8.0.20\\mysql-connector-java-8.0.20.jar"/>
+    <classPathEntry  location="C:\\Users\\Samsara\\.m2\\repository\\mysql\\mysql-connector-java\\8.0.22\\mysql-connector-java-8.0.22.jar"/>
     <context id="DB2Tables" targetRuntime="MyBatis3">
         <!-- 取消所有注释 -->
         <commentGenerator>
@@ -46,7 +46,6 @@
 <!--         <table tableName="re_user" domainObjectName="User"></table>-->
 <!--         <table tableName="re_employee" domainObjectName="Employee"></table>-->
 <!--         <table tableName="re_navigation" domainObjectName="Navigation"></table>-->
-<!--         <table tableName="re_menu" domainObjectName="Menu"></table>-->
-        <table tableName="re_store" domainObjectName="Store"></table>
+         <table tableName="re_menu" domainObjectName="Menu"></table>
     </context>
 </generatorConfiguration>
