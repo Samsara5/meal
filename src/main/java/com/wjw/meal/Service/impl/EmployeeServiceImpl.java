@@ -31,10 +31,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     public Boolean verifyEmployee(String username, String password) {
         EmployeeExample example = new EmployeeExample();
         example.createCriteria().andEusernameEqualTo(username);
-        List<Employee> employeeList  = employeeMapper.selectByExample(example);
-        if (!CollectionUtils.isEmpty(employeeList)){
+        List<Employee> employeeList = employeeMapper.selectByExample(example);
+        if (!CollectionUtils.isEmpty(employeeList)) {
             Employee e = employeeList.get(0);
-            if (e.getEpassword().equals(password)){
+            if (e.getEpassword().equals(password)) {
                 return true;
             }
             return false;
@@ -64,16 +64,16 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Map<String, String> getPassword(String username, String phone, String name) {
-        Map<String,String> res = new HashMap<>();
+        Map<String, String> res = new HashMap<>();
         EmployeeExample example = new EmployeeExample();
         example.createCriteria().andEusernameEqualTo(username).andEphoneEqualTo(phone).andEnameEqualTo(name);
         List<Employee> employees = employeeMapper.selectByExample(example);
-        if (!CollectionUtils.isEmpty(employees)){
-            res.put("istrue","true");
-            res.put("password",employees.get(0).getEpassword());
-        }else {
-            res.put("istrue","false");
-            res.put("password","null");
+        if (!CollectionUtils.isEmpty(employees)) {
+            res.put("istrue", "true");
+            res.put("password", employees.get(0).getEpassword());
+        } else {
+            res.put("istrue", "false");
+            res.put("password", "null");
         }
         return res;
     }
@@ -82,15 +82,15 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void UpdateEmployee(Employee employee) {
         EmployeeExample example = new EmployeeExample();
         example.createCriteria().andEusernameEqualTo(employee.getEusername());
-        employeeMapper.updateByExampleSelective(employee,example);
+        employeeMapper.updateByExampleSelective(employee, example);
     }
 
 
     @Override
     public String importEmployeesByExcel(MultipartFile file) {
-        ExcelUtils sheet = new ExcelUtils(file,"username");
+        ExcelUtils sheet = new ExcelUtils(file, "username");
         Map<String, List<String>> sheetinfo = sheet.readExcelData();
-        for(int i=1;i<sheetinfo.size();i++){
+        for (int i = 1; i < sheetinfo.size(); i++) {
             List<String> cloumdata = sheetinfo.get(String.valueOf(i));
             Employee employee = new Employee();
             //姓名

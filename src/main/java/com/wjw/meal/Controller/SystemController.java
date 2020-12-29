@@ -19,30 +19,33 @@ public class SystemController {
     @Autowired
     SystemService systemService;
 
-    @ApiOperation(value = "获取页面菜单栏",notes = "")
+    @ApiOperation(value = "获取页面菜单栏", notes = "")
     @GetMapping("/getNavigation")
-    public Message getNavigation(){
+    public Message getNavigation() {
         return systemService.getNavigation();
     }
 
     @ApiOperation(value = "下载用户导入模板")
     @GetMapping("/getemployeeimporttemplate")
-    public void getEmployeeExcelTemplate(HttpServletResponse response){
+    public void getEmployeeExcelTemplate(HttpServletResponse response) {
         systemService.getEmployeeExcelTemplate(response);
     }
+
     @ApiOperation(value = "下载用户导入模板")
     @GetMapping("/getuserimporttemplate")
-    public void getUserExcelTemplate(HttpServletResponse response){
+    public void getUserExcelTemplate(HttpServletResponse response) {
         systemService.getUserExcelTemplate(response);
     }
+
     @ApiOperation(value = "下载用户导入模板")
     @GetMapping("/getmenuimporttemplate")
-    public void getMenuExcelTemplate(HttpServletResponse response){
+    public void getMenuExcelTemplate(HttpServletResponse response) {
 
     }
+
     @ApiOperation(value = "下载用户导入模板")
     @GetMapping("/getstroeimporttemplate")
-    public void getStroeExcelTemplate(HttpServletResponse response){
+    public void getStroeExcelTemplate(HttpServletResponse response) {
 
     }
 

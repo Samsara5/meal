@@ -1,4 +1,5 @@
 package com.wjw.meal.Utils;
+
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
@@ -9,11 +10,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.imageio.ImageIO;
+
 public class ImageGender {
     public static void main(String[] args) throws IOException {
         String name = "雪碧（罐装）";
         generateImg(name, name);
     }
+
     /**
      * 绘制字体头像
      * 如果是英文名，只显示首字母大写
@@ -33,7 +36,7 @@ public class ImageGender {
             String first = name.substring(0, 1);
             if (isChinese(first)) {
                 //截取倒数两位汉字
-                nameWritten = name.substring(0,2);
+                nameWritten = name.substring(0, 2);
             } else {
                 //截取前面的两个英文字母
                 nameWritten = name.substring(0, 2).toUpperCase();
@@ -59,7 +62,7 @@ public class ImageGender {
 
         Font font = null;
         //两个字及以上
-        if(nameWritten.length() >= 2) {
+        if (nameWritten.length() >= 2) {
             font = new Font("微软雅黑", Font.PLAIN, 30);
             g2.setFont(font);
 
@@ -76,14 +79,14 @@ public class ImageGender {
 
                 //首英,如 AB
             } else {
-                nameWritten = nameWritten.substring(0,1);
+                nameWritten = nameWritten.substring(0, 1);
             }
 
         }
         //一个字
-        if(nameWritten.length() ==1) {
+        if (nameWritten.length() == 1) {
             //中文
-            if(isChinese(nameWritten)) {
+            if (isChinese(nameWritten)) {
                 font = new Font("微软雅黑", Font.PLAIN, 50);
                 g2.setFont(font);
                 g2.drawString(nameWritten, 25, 70);
@@ -104,6 +107,7 @@ public class ImageGender {
 
     /**
      * 判断字符串是否为中文
+     *
      * @param str
      * @return
      */
@@ -119,6 +123,7 @@ public class ImageGender {
 
     /**
      * 获得随机颜色
+     *
      * @return
      */
     private static Color getRandomColor() {
@@ -149,6 +154,7 @@ public class ImageGender {
 
     /**
      * 图片做圆角处理
+     *
      * @param image
      * @param cornerRadius
      * @return

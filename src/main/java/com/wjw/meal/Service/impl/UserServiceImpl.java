@@ -23,20 +23,20 @@ public class UserServiceImpl implements UserService {
     UserMapper userMapper;
 
     @Override
-    public PageInfo getAllUsersByPageNum(String topage,String pagesize) {
-        PageHelper.startPage(Integer.valueOf(topage),Integer.valueOf(pagesize));
+    public PageInfo getAllUsersByPageNum(String topage, String pagesize) {
+        PageHelper.startPage(Integer.valueOf(topage), Integer.valueOf(pagesize));
         List<User> userList = userMapper.selectByExample(null);
-        PageInfo  pageInfo =  new PageInfo(userList);
+        PageInfo pageInfo = new PageInfo(userList);
         return pageInfo;
     }
 
-    public Boolean verifyUser(String username, String password){
+    public Boolean verifyUser(String username, String password) {
         UserExample example = new UserExample();
         example.createCriteria().andUsernameEqualTo(username);
         List<User> users = userMapper.selectByExample(example);
-        if (!CollectionUtils.isEmpty(users)){
+        if (!CollectionUtils.isEmpty(users)) {
             User u = users.get(0);
-            if (u.getPassword().equals(password)){
+            if (u.getPassword().equals(password)) {
                 return true;
             }
             return false;
@@ -54,16 +54,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Map<String, String> getPassword(String username, String phone, String name) {
-        Map<String,String> res = new HashMap<>();
+        Map<String, String> res = new HashMap<>();
         UserExample example = new UserExample();
         example.createCriteria().andUsernameEqualTo(username).andPhoenEqualTo(phone).andNameEqualTo(name);
         List<User> users = userMapper.selectByExample(example);
-        if (!CollectionUtils.isEmpty(users)){
-            res.put("istrue","true");
-            res.put("password",users.get(0).getPassword());
-        }else {
-            res.put("istrue","false");
-            res.put("password","null");
+        if (!CollectionUtils.isEmpty(users)) {
+            res.put("istrue", "true");
+            res.put("password", users.get(0).getPassword());
+        } else {
+            res.put("istrue", "false");
+            res.put("password", "null");
         }
         return res;
     }
@@ -72,14 +72,14 @@ public class UserServiceImpl implements UserService {
     public void UpdateUser(User user) {
         UserExample example = new UserExample();
         example.createCriteria().andUsernameEqualTo(user.getUsername());
-        userMapper.updateByExampleSelective(user,example);
+        userMapper.updateByExampleSelective(user, example);
     }
 
     @Override
-    public String importUsersByExcel(MultipartFile file){
-        ExcelUtils sheet = new ExcelUtils(file,"username");
+    public String importUsersByExcel(MultipartFile file) {
+        ExcelUtils sheet = new ExcelUtils(file, "username");
         Map<String, List<String>> sheetinfo = sheet.readExcelData();
-        for (int i=1;i<sheetinfo.size();i++){
+        for (int i = 1; i < sheetinfo.size(); i++) {
             List<String> cloumdata = sheetinfo.get(String.valueOf(i));
             User user = new User();
             //姓名
@@ -89,7 +89,7 @@ public class UserServiceImpl implements UserService {
             //密码
             user.setPassword(cloumdata.get(2));
             //是否为VIP
-            user.setRoleid(Integer.valueOf(cloumdata.get(3))==1 ? 7 : 8);
+            user.setRoleid(Integer.valueOf(cloumdata.get(3)) == 1 ? 7 : 8);
             //电话
             user.setPhoen(cloumdata.get(4));
             //邮箱
@@ -99,7 +99,7 @@ public class UserServiceImpl implements UserService {
             try {
                 Date date = simpleDateFormat.parse(cloumdata.get(6));//将formate型转化成Date数据类型
                 user.setBirth(date);
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             //性别

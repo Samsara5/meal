@@ -8,13 +8,13 @@ import java.util.Map;
 
 public interface UserService {
 
-    PageInfo getAllUsersByPageNum(String topage,String pagesize);
+    PageInfo getAllUsersByPageNum(String topage, String pagesize);
 
     Boolean verifyUser(String username, String password);
 
     void AddUser(User user);
 
-    Map<String,String> getPassword(String username,String phone,String name);
+    Map<String, String> getPassword(String username, String phone, String name);
 
     void UpdateUser(User user);
 

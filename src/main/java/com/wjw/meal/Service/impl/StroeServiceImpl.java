@@ -38,8 +38,8 @@ public class StroeServiceImpl implements StoreService {
         storetype.add("vegetable");
         storetype.add("drink");
         ExcelUtils sheet;
-        for (String sheetname:storetype) {
-            sheet = new ExcelUtils(file,sheetname);
+        for (String sheetname : storetype) {
+            sheet = new ExcelUtils(file, sheetname);
             if (sheetname.equals("meat")) {
                 Map<String, List<String>> meatinfo = sheet.readExcelData();
                 for (int i = 1; i < meatinfo.size(); i++) {
@@ -67,11 +67,11 @@ public class StroeServiceImpl implements StoreService {
                         storeMapper.insert(store);
                     } catch (Exception e) {
                         e.printStackTrace();
-                        Assert.isTrue(false,meatinfo.get("erro").get(0));
+                        Assert.isTrue(false, meatinfo.get("erro").get(0));
                     }
                 }
             }
-            if (sheetname.equals("vegetable")){
+            if (sheetname.equals("vegetable")) {
                 Map<String, List<String>> vegetableinfo = sheet.readExcelData();
                 for (int i = 1; i < vegetableinfo.size(); i++) {
                     List<String> cloumdatameat = vegetableinfo.get(String.valueOf(i));
@@ -98,11 +98,11 @@ public class StroeServiceImpl implements StoreService {
                         storeMapper.insert(store);
                     } catch (Exception e) {
                         e.printStackTrace();
-                        Assert.isTrue(false,vegetableinfo.get("erro").get(0));
+                        Assert.isTrue(false, vegetableinfo.get("erro").get(0));
                     }
                 }
             }
-            if (sheetname.equals("drink")){
+            if (sheetname.equals("drink")) {
                 Map<String, List<String>> drinkinfo = sheet.readExcelData();
                 for (int i = 1; i < drinkinfo.size(); i++) {
                     List<String> cloumdatameat = drinkinfo.get(String.valueOf(i));
@@ -129,7 +129,7 @@ public class StroeServiceImpl implements StoreService {
                         storeMapper.insert(store);
                     } catch (Exception e) {
                         e.printStackTrace();
-                        Assert.isTrue(false,drinkinfo.get("erro").get(0));
+                        Assert.isTrue(false, drinkinfo.get("erro").get(0));
                     }
                 }
             }
@@ -153,7 +153,7 @@ public class StroeServiceImpl implements StoreService {
     public void updateStrore(Store store) {
         StoreExample example = new StoreExample();
         example.createCriteria().andStroeidEqualTo(store.getStroeid());
-        storeMapper.updateByExampleSelective(store,example);
+        storeMapper.updateByExampleSelective(store, example);
     }
 
     @Override

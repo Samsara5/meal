@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface EmployeeService {
-    Boolean verifyEmployee(String username,String password);
+    Boolean verifyEmployee(String username, String password);
 
     List<Employee> getAllEmployee();
 
@@ -15,7 +15,7 @@ public interface EmployeeService {
 
     void AddEmployee(Employee employee);
 
-    Map<String,String> getPassword(String username, String phone, String name);
+    Map<String, String> getPassword(String username, String phone, String name);
 
     void UpdateEmployee(Employee employee);
 

@@ -36,15 +36,15 @@ public class SystemServiceImpl implements SystemService {
         NavigationExample example = new NavigationExample();
         example.createCriteria().andPidEqualTo(0);
         List<Navigation> mainnavigation = navigationMapper.selectByExample(example);
-        for (Navigation pnav:mainnavigation){
+        for (Navigation pnav : mainnavigation) {
             example.clear();
             example.createCriteria().andPidEqualTo(pnav.getId());
             List<Navigation> childrenlist = navigationMapper.selectByExample(example);
             JSONObject object = (JSONObject) JSON.toJSON(pnav);
-            object.put("children",childrenlist);
+            object.put("children", childrenlist);
             navigationres.add(object);
         }
-        return Message.success().add("navigation",navigationres);
+        return Message.success().add("navigation", navigationres);
     }
 
     @Override
@@ -54,7 +54,7 @@ public class SystemServiceImpl implements SystemService {
             response.setContentType("multipart/form-data");
             // 确保弹出下载对话框
             response.setHeader("Content-disposition", "attachment; filename=" + new String("template_employee.xlsx".getBytes("utf-8"), "iso-8859-1"));
-            Resource resource = resourceLoader.getResource("classpath:static" + File.separator +"template_employee.xlsx");
+            Resource resource = resourceLoader.getResource("classpath:static" + File.separator + "template_employee.xlsx");
             Assert.isTrue(resource.exists(), "文件不存在:" + "template_employee.xlsx");
             InputStream inputStream = resource.getInputStream();
             OutputStream outputStream = response.getOutputStream();
@@ -76,7 +76,7 @@ public class SystemServiceImpl implements SystemService {
             response.setContentType("multipart/form-data");
             // 确保弹出下载对话框
             response.setHeader("Content-disposition", "attachment; filename=" + new String("template_user.xlsx".getBytes("utf-8"), "iso-8859-1"));
-            Resource resource = resourceLoader.getResource("classpath:static" + File.separator +"template_user.xlsx");
+            Resource resource = resourceLoader.getResource("classpath:static" + File.separator + "template_user.xlsx");
             Assert.isTrue(resource.exists(), "文件不存在:" + "template_user.xlsx");
             InputStream inputStream = resource.getInputStream();
             OutputStream outputStream = response.getOutputStream();

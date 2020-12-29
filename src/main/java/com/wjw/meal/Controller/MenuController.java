@@ -21,46 +21,48 @@ public class MenuController {
 
     @ApiOperation(value = "新增菜单项")
     @PostMapping("/addmenu")
-    public Message addmenu(@RequestBody Menu menu){
+    public Message addmenu(@RequestBody Menu menu) {
         menuService.addMenu(menu);
         return Message.success();
     }
+
     @ApiOperation(value = "修改菜单项")
     @PutMapping("/updatemenu")
-    public Message updatemenu(@RequestBody Menu menu){
+    public Message updatemenu(@RequestBody Menu menu) {
         menuService.updateMenu(menu);
         return Message.success();
     }
+
     @ApiOperation(value = "通过id删除单个菜单")
     @DeleteMapping("/deletemenu")
-    public Message delmenubyid(@RequestParam String id){
+    public Message delmenubyid(@RequestParam String id) {
         menuService.delMenuById(id);
         return Message.success();
     }
 
     @ApiOperation(value = "通过id批量删除")
     @DeleteMapping("/autodelmenus")
-    public Message delmenubyids(@RequestParam List<String> ids){
+    public Message delmenubyids(@RequestParam List<String> ids) {
         menuService.delmenubyids(ids);
         return Message.success();
     }
 
     @ApiOperation(value = "通过id查询菜单")
     @GetMapping("/getmenusbytype")
-    public Message getMenusbyType(@RequestParam String id){
-        return Message.success().add("menus",menuService.getMenusByMenuType(Integer.valueOf(id)));
+    public Message getMenusbyType(@RequestParam String id) {
+        return Message.success().add("menus", menuService.getMenusByMenuType(Integer.valueOf(id)));
     }
 
     @ApiOperation(value = "获取所有菜单")
     @GetMapping("/getallmenus")
-    public Message getAllMenus(){
-        return Message.success().add("menus",menuService.getAllMenus());
+    public Message getAllMenus() {
+        return Message.success().add("menus", menuService.getAllMenus());
     }
 
 
     @ApiOperation(value = "导入Excel批量导入菜单")
     @PostMapping("importmenusbyexcel")
-    public void importMenusByExcel(@RequestParam("file") MultipartFile file){
+    public void importMenusByExcel(@RequestParam("file") MultipartFile file) {
         menuService.importMenusByExcel(file);
     }
 
