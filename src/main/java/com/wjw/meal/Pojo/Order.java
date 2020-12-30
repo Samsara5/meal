@@ -3,11 +3,9 @@ package com.wjw.meal.Pojo;
 import java.util.Date;
 
 public class Order {
-    private Integer oid;
+    private String oid;
 
-    private Integer uid;
-
-    private String content;
+    private String uid;
 
     private String price;
 
@@ -17,28 +15,22 @@ public class Order {
 
     private Integer state;
 
-    public Integer getOid() {
+    private String content;
+
+    public String getOid() {
         return oid;
     }
 
-    public void setOid(Integer oid) {
-        this.oid = oid;
+    public void setOid(String oid) {
+        this.oid = oid == null ? null : oid.trim();
     }
 
-    public Integer getUid() {
+    public String getUid() {
         return uid;
     }
 
-    public void setUid(Integer uid) {
-        this.uid = uid;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
+    public void setUid(String uid) {
+        this.uid = uid == null ? null : uid.trim();
     }
 
     public String getPrice() {
@@ -71,5 +63,13 @@ public class Order {
 
     public void setState(Integer state) {
         this.state = state;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content == null ? null : content.trim();
     }
 }

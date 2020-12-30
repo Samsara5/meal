@@ -18,5 +18,5 @@ public interface OrderService {
 
     List<Order> getAllOrders();
 
-    List<Order> getOrdersSelective(String byWhat);
+    List<Order> getOrdersSelective(String byWhat,String condition);
 }
