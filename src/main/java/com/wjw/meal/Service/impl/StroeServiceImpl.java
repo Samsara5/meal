@@ -161,6 +161,13 @@ public class StroeServiceImpl implements StoreService {
         return storeMapper.selectByExample(null);
     }
 
+    @Override
+    public Store getStoreByName(String name) {
+        StoreExample example = new StoreExample();
+        example.createCriteria().andStroenameEqualTo(name);
+        return storeMapper.selectByExample(example).get(0);
+    }
+
     //通过store去更新菜单 传入Excel
     @Override
     public void initMenuByStore() {

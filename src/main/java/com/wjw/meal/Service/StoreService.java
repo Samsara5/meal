@@ -19,5 +19,7 @@ public interface StoreService {
 
     List<Store> getAllStrores();
 
+    Store getStoreByName(String name);
+
     void initMenuByStore();
 }

@@ -25,7 +25,7 @@ public class SystemController {
         return systemService.getNavigation();
     }
 
-    @ApiOperation(value = "下载用户导入模板")
+    @ApiOperation(value = "下载员工导入模板")
     @GetMapping("/getemployeeimporttemplate")
     public void getEmployeeExcelTemplate(HttpServletResponse response) {
         systemService.getEmployeeExcelTemplate(response);
@@ -37,16 +37,16 @@ public class SystemController {
         systemService.getUserExcelTemplate(response);
     }
 
-    @ApiOperation(value = "下载用户导入模板")
+    @ApiOperation(value = "下载菜单导入模板")
     @GetMapping("/getmenuimporttemplate")
     public void getMenuExcelTemplate(HttpServletResponse response) {
-
+        systemService.getMenuExcelTemplate(response);
     }
 
-    @ApiOperation(value = "下载用户导入模板")
+    @ApiOperation(value = "下载仓储导入模板")
     @GetMapping("/getstroeimporttemplate")
     public void getStroeExcelTemplate(HttpServletResponse response) {
-
+        systemService.getStroeExcelTemplate(response);
     }
 
 }

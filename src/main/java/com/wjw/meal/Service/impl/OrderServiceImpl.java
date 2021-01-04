@@ -5,17 +5,15 @@ import com.alibaba.fastjson.JSONObject;
 import com.wjw.meal.Dao.OrderContentMapper;
 import com.wjw.meal.Dao.OrderMapper;
 import com.wjw.meal.Dao.StoreMapper;
-import com.wjw.meal.Pojo.Order;
-import com.wjw.meal.Pojo.OrderContent;
-import com.wjw.meal.Pojo.OrderContentExample;
-import com.wjw.meal.Pojo.OrderExample;
+import com.wjw.meal.Pojo.*;
 import com.wjw.meal.Service.OrderService;
 import com.wjw.meal.Service.StoreService;
+import com.wjw.meal.Utils.NomalUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.multipart.MultipartFile;
+
 
 import java.util.*;
 
@@ -38,7 +36,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void addOrder(Order order) {
-
+        order.setUid(NomalUtils.getUUID());
+        order.setContent(formatOrderContentToIds(order.getContent()));
+        orderMapper.insert(order);
     }
 
     @Override
@@ -73,7 +73,10 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void updateOrder(Order order) {
-
+        OrderExample example = new OrderExample();
+        example.createCriteria().andOidEqualTo(order.getOid());
+        order.setContent(formatOrderContentToIds(order.getContent()));
+        orderMapper.updateByExampleSelective(order, example);
     }
 
     @Override
@@ -114,6 +117,7 @@ public class OrderServiceImpl implements OrderService {
         return formatOrderContent(orderMapper.selectByExample(example));
     }
 
+    //返回给前端的数据 将id解析为具体的商品
     public List<Order> formatOrderContent(List<Order> orderList) {
         List<Order> orders = new ArrayList<>();
         for (Order o : orderList) {
@@ -128,14 +132,25 @@ public class OrderServiceImpl implements OrderService {
         return orders;
     }
 
-    public List<Order> putOrderContent(List<Order> originalOrders) {
-        List<Order> newOrders = new ArrayList<>();
-        for (Order o : originalOrders) {
-            JSONObject object = (JSONObject) JSON.toJSON(o.getContent());
-            String goods = object.getString("goods");
-            String number = object.getString("number");
-
+    //将内容转换为id，并将内容记录放入数据库 并将转换后的Id列表返回
+    public String formatOrderContentToIds(String goodsInfo) {
+        List<OrderContentJsonObejct> list;
+        List<String> idList = new ArrayList<>();
+        String goods = JSON.parseObject(goodsInfo).toJSONString();
+        list = JSONObject.parseArray(goods, OrderContentJsonObejct.class);
+        for (OrderContentJsonObejct o : list) {
+            String uuid = UUID.randomUUID().toString();
+            OrderContent content = new OrderContent();
+            content.setContentid(uuid);
+            idList.add(uuid);
+            Store storeItem = storeService.getStoreByName(o.getGoods());
+            Assert.isTrue(storeItem == null, "未找到该商品");
+            Assert.isTrue(Integer.valueOf(storeItem.getStroenumber()) < Integer.valueOf(o.getNum()), "商品数量不足！");
+            content.setStorename(o.getGoods());
+            content.setOrdernum(o.getNum());
+            content.setTotalprice(String.valueOf(Integer.valueOf(o.getNum()) * Integer.valueOf(storeItem.getStroenumber())));
+            contentMapper.insert(content);
         }
-        return null;
+        return NomalUtils.ListToString(idList);
     }
 }

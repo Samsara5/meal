@@ -93,11 +93,67 @@ public class SystemServiceImpl implements SystemService {
 
     @Override
     public void getMenuExcelTemplate(HttpServletResponse response) {
-
+        try {
+            //设置文件的类型
+            response.setContentType("multipart/form-data");
+            // 确保弹出下载对话框
+            response.setHeader("Content-disposition", "attachment; filename=" + new String("template_menu.xlsx".getBytes("utf-8"), "iso-8859-1"));
+            Resource resource = resourceLoader.getResource("classpath:static" + File.separator + "template_menu.xlsx");
+            Assert.isTrue(resource.exists(), "文件不存在:" + "template_menu.xlsx");
+            InputStream inputStream = resource.getInputStream();
+            OutputStream outputStream = response.getOutputStream();
+            int length;
+            while ((length = inputStream.read()) != -1) {
+                outputStream.write(length);
+            }
+            inputStream.close();
+            outputStream.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void getStroeExcelTemplate(HttpServletResponse response) {
+        try {
+            //设置文件的类型
+            response.setContentType("multipart/form-data");
+            // 确保弹出下载对话框
+            response.setHeader("Content-disposition", "attachment; filename=" + new String("template_store.xlsx".getBytes("utf-8"), "iso-8859-1"));
+            Resource resource = resourceLoader.getResource("classpath:static" + File.separator + "template_store.xlsx");
+            Assert.isTrue(resource.exists(), "文件不存在:" + "template_store.xlsx");
+            InputStream inputStream = resource.getInputStream();
+            OutputStream outputStream = response.getOutputStream();
+            int length;
+            while ((length = inputStream.read()) != -1) {
+                outputStream.write(length);
+            }
+            inputStream.close();
+            outputStream.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
+    @Override
+    public void getOrderExcelTemplate(HttpServletResponse response) {
+        try {
+            //设置文件的类型
+            response.setContentType("multipart/form-data");
+            // 确保弹出下载对话框
+            response.setHeader("Content-disposition", "attachment; filename=" + new String("template_order.xlsx".getBytes("utf-8"), "iso-8859-1"));
+            Resource resource = resourceLoader.getResource("classpath:static" + File.separator + "template_order.xlsx");
+            Assert.isTrue(resource.exists(), "文件不存在:" + "template_order.xlsx");
+            InputStream inputStream = resource.getInputStream();
+            OutputStream outputStream = response.getOutputStream();
+            int length;
+            while ((length = inputStream.read()) != -1) {
+                outputStream.write(length);
+            }
+            inputStream.close();
+            outputStream.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

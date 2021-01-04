@@ -14,4 +14,6 @@ public interface SystemService {
     void getMenuExcelTemplate(HttpServletResponse response);
 
     void getStroeExcelTemplate(HttpServletResponse response);
+
+    void getOrderExcelTemplate(HttpServletResponse response);
 }
