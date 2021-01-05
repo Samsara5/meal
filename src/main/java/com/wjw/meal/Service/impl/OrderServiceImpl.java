@@ -19,6 +19,7 @@ import org.springframework.util.Assert;
 import org.springframework.web.multipart.MultipartFile;
 
 
+import java.math.BigDecimal;
 import java.util.*;
 
 import static com.wjw.meal.Utils.NomalUtils.transferStringToDate;
@@ -59,7 +60,7 @@ public class OrderServiceImpl implements OrderService {
             int totalPrice = 0;
             List<String> columnData = sheetinfo.get(String.valueOf(i));
             Order order = new Order();
-            order.setUid(NomalUtils.getUUID());
+            order.setOid(NomalUtils.getUUID());
             //下单人Id
             order.setUid(userService.getUserByName(columnData.get(0)).getUid());
             //将菜品组合成json 通过工具转换为id列表
@@ -73,7 +74,7 @@ public class OrderServiceImpl implements OrderService {
                 }
                 obejcts.add(new OrderContentJsonObejct(columnData.get(j), columnData.get(j + 1)));
                 Menu menu = menuService.getMenuByMenuName(columnData.get(j));
-                totalPrice = totalPrice + (Integer.valueOf(menu.getMpirce()) * Integer.valueOf(columnData.get(j + 1)));
+                totalPrice = totalPrice + (NomalUtils.StringToInt(menu.getMpirce()) * NomalUtils.StringToInt(columnData.get(j + 1)));
             }
             //本次订单总价格
             order.setPrice(String.valueOf(totalPrice));
@@ -194,11 +195,11 @@ public class OrderServiceImpl implements OrderService {
             content.setContentid(uuid);
             idList.add(uuid);
             Store storeItem = storeService.getStoreByName(o.getGoods());
-            Assert.isTrue(storeItem == null, "未找到该商品  -->"+o.getGoods());
-            Assert.isTrue(Integer.valueOf(storeItem.getStroenumber()) < Integer.valueOf(o.getNum()), "商品数量不足！");
+            Assert.isTrue(storeItem != null,o.getGoods()+ "--> 未找到该商品");
+            Assert.isTrue(Double.valueOf(NomalUtils.StringToInt(storeItem.getStroenumber())) > NomalUtils.StringToInt(o.getNum()), o.getGoods()+"--> 商品数量不足！");
             content.setStorename(o.getGoods());
             content.setOrdernum(o.getNum());
-            content.setTotalprice(String.valueOf(Integer.valueOf(o.getNum()) * Integer.valueOf(storeItem.getStroenumber())));
+            content.setTotalprice(String.valueOf(NomalUtils.StringToInt(o.getNum()) * NomalUtils.StringToInt(storeItem.getStroenumber())));
             contentMapper.insert(content);
         }
         return NomalUtils.ListToString(idList);

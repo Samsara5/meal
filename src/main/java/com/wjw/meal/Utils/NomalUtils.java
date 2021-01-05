@@ -28,4 +28,8 @@ public class NomalUtils {
     public static String getUUID(){
         return UUID.randomUUID().toString();
     }
+
+    public static int StringToInt(String number){
+        return Double.valueOf(number).intValue();
+    }
 }
