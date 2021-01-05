@@ -7,17 +7,19 @@ import java.util.List;
 
 public interface MenuService {
 
-    public List<Menu> getMenusByMenuType(Integer typeId);
+    List<Menu> getMenusByMenuType(Integer typeId);
 
-    public List<Menu> getAllMenus();
+    List<Menu> getAllMenus();
 
-    public void addMenu(Menu menu);
+    Menu getMenuByMenuName(String name);
 
-    public void updateMenu(Menu menu);
+    void addMenu(Menu menu);
 
-    public void delMenuById(String id);
+    void updateMenu(Menu menu);
 
-    public void delmenubyids(List<String> ids);
+    void delMenuById(String id);
+
+    void delmenubyids(List<String> ids);
 
     void importMenusByExcel(MultipartFile file);
 }

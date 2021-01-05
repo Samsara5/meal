@@ -30,6 +30,13 @@ public class UserServiceImpl implements UserService {
         return pageInfo;
     }
 
+    @Override
+    public User getUserByName(String name) {
+        UserExample example = new UserExample();
+        example.createCriteria().andNameEqualTo(name);
+        return userMapper.selectByExample(example).get(0);
+    }
+
     public Boolean verifyUser(String username, String password) {
         UserExample example = new UserExample();
         example.createCriteria().andUsernameEqualTo(username);

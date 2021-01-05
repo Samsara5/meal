@@ -6,6 +6,15 @@ public class OrderContentJsonObejct {
 
     String num;
 
+    public OrderContentJsonObejct(){
+
+    }
+
+    public OrderContentJsonObejct(String goods, String num) {
+        this.goods = goods;
+        this.num = num;
+    }
+
     public String getGoods() {
         return goods;
     }

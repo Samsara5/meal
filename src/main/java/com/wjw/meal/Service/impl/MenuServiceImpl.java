@@ -57,6 +57,14 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
+    public Menu getMenuByMenuName(String name) {
+        MenuExample example = new MenuExample();
+        example.createCriteria().andMnameEqualTo(name);
+        menuMapper.selectByExample(example);
+        return menuMapper.selectByExample(example).get(0);
+    }
+
+    @Override
     public void addMenu(Menu menu) {
         menu.setMid(UUID.randomUUID().toString());
         menuMapper.insert(menu);

@@ -10,6 +10,8 @@ public interface UserService {
 
     PageInfo getAllUsersByPageNum(String topage, String pagesize);
 
+    User getUserByName(String name);
+
     Boolean verifyUser(String username, String password);
 
     void AddUser(User user);
