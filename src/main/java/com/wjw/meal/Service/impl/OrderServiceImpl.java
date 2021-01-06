@@ -69,7 +69,7 @@ public class OrderServiceImpl implements OrderService {
                 if (j % 2 == 0) {
                     continue;
                 }
-                if (columnData.get(j)==null || columnData.get(j) == ""){
+                if (columnData.get(j) == null || columnData.get(j) == "") {
                     continue;
                 }
                 obejcts.add(new OrderContentJsonObejct(columnData.get(j), columnData.get(j + 1)));
@@ -87,10 +87,16 @@ public class OrderServiceImpl implements OrderService {
             order.setCreatetime(NomalUtils.transferStringToDate(columnData.get(11)));
             //订单完成时间
             order.setFinshtime(NomalUtils.transferStringToDate(columnData.get(12)));
-            switch (columnData.get(13)){
-                case "未完成":order.setState(0);break;
-                case "已完成":order.setState(1);break;
-                default:order.setState(-1);break;
+            switch (columnData.get(13)) {
+                case "未完成":
+                    order.setState(0);
+                    break;
+                case "已完成":
+                    order.setState(1);
+                    break;
+                default:
+                    order.setState(-1);
+                    break;
             }
             orderMapper.insert(order);
         }
@@ -195,11 +201,12 @@ public class OrderServiceImpl implements OrderService {
             content.setContentid(uuid);
             idList.add(uuid);
             Store storeItem = storeService.getStoreByName(o.getGoods());
-            Assert.isTrue(storeItem != null,o.getGoods()+ "--> 未找到该商品");
-            Assert.isTrue(Double.valueOf(NomalUtils.StringToInt(storeItem.getStroenumber())) > NomalUtils.StringToInt(o.getNum()), o.getGoods()+"--> 商品数量不足！");
+            Assert.isTrue(storeItem != null, o.getGoods() + "--> 未找到该商品");
+            Assert.isTrue(NomalUtils.StringToInt(storeItem.getStroenumber()) > NomalUtils.StringToInt(o.getNum()), o.getGoods() + "--> 商品数量不足！");
             content.setStorename(o.getGoods());
             content.setOrdernum(o.getNum());
-            content.setTotalprice(String.valueOf(NomalUtils.StringToInt(o.getNum()) * NomalUtils.StringToInt(storeItem.getStroenumber())));
+            Menu menu = menuService.getMenuByMenuName(o.getGoods());
+            content.setTotalprice(String.valueOf(NomalUtils.StringToInt(o.getNum()) * NomalUtils.StringToInt(menu.getMpirce())));
             contentMapper.insert(content);
         }
         return NomalUtils.ListToString(idList);
