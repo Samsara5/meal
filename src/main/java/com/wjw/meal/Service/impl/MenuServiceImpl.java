@@ -5,6 +5,7 @@ import com.wjw.meal.Dao.MenuTypeMapper;
 import com.wjw.meal.Dao.StoreMapper;
 import com.wjw.meal.Pojo.*;
 import com.wjw.meal.Service.MenuService;
+import com.wjw.meal.Service.StoreService;
 import com.wjw.meal.Utils.ExcelUtils;
 import com.wjw.meal.Utils.ImageGender;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,9 @@ public class MenuServiceImpl implements MenuService {
 
     @Autowired
     StoreMapper storeMapper;
+
+    @Autowired
+    StoreService storeService;
 
     @Override
     public List<Menu> getMenusByMenuType(Integer typeId) {
@@ -103,9 +107,8 @@ public class MenuServiceImpl implements MenuService {
             //菜名
             menu.setMname(cloumdata.get(0));
             //仓储材料Id
-            StoreExample example = new StoreExample();
-            example.createCriteria().andStroenameEqualTo(cloumdata.get(1));
-            Store store = storeMapper.selectByExample(example).get(0);
+            Store store = storeService.getStoreByName(cloumdata.get(1));
+            Assert.isTrue(store != null, "未找到食材-->" + cloumdata.get(1));
             menu.setMmateria(store.getStroeid());
             //剩余份数
             menu.setMnumber(store.getStroenumber());
