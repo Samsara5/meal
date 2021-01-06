@@ -23,9 +23,9 @@ public class EmployeeController {
 
     @ApiOperation(value = "员工登录", notes = "")
     @PostMapping(value = "/login")
-    public Message Login(@RequestParam String username, String password) {
-        if (employeeService.verifyEmployee(username, password)) {
-            return Message.success().add("Token", Token.token(username, password));
+    public Message Login(@RequestBody Employee employee) {
+        if (employeeService.verifyEmployee(employee.getEusername(), employee.getEpassword())) {
+            return Message.success().add("Token", Token.token(employee.getEusername(), employee.getEpassword()));
         } else {
             return Message.fail();
         }

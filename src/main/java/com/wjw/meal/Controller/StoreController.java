@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @Api(tags = "仓储管理")
+@RequestMapping("/store")
 public class StoreController {
 
     @Autowired
@@ -53,7 +54,7 @@ public class StoreController {
         return Message.success();
     }
 
-    @ApiOperation("查询仓库内所有材料")
+    @ApiOperation("通过名字查询材料")
     @GetMapping("/getallstores")
     public Message getAllStore() {
         return Message.success().add("stores", storeService.getAllStrores());

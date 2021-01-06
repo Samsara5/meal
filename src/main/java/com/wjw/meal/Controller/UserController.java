@@ -25,9 +25,9 @@ public class UserController {
 
     @ApiOperation(value = "用户登录", notes = "")
     @PostMapping(value = "/login")
-    public Message Login(@RequestParam String username, String password) {
-        if (userService.verifyUser(username, password)) {
-            return Message.success().add("Token", Token.token(username, password)).add("usertype", 1);
+    public Message Login(@RequestBody User user) {
+        if (userService.verifyUser(user.getUsername(), user.getPassword())) {
+            return Message.success().add("Token", Token.token(user.getUsername(), user.getPassword()));
         } else {
             return Message.fail();
         }

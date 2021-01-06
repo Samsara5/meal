@@ -8,6 +8,7 @@ import com.wjw.meal.Service.StoreService;
 import com.wjw.meal.Utils.ExcelUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -32,6 +33,7 @@ public class StroeServiceImpl implements StoreService {
     }
 
     @Override
+    @Transactional("transactionManager")
     public void importStoresByExcel(MultipartFile file) {
         List<String> storetype = new ArrayList<>();
         storetype.add("meat");
