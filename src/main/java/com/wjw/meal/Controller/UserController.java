@@ -11,9 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
 import java.util.Map;
 
+/**
+ * @author wujiawei
+ * @version 1.0
+ * @Date 2021/1/7 11:27
+ * @Description 用户信息管理
+ */
 
 @RestController
 @Api(tags = {"用户信息管理"})

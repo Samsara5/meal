@@ -1,5 +1,6 @@
 package com.wjw.meal.Service.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.wjw.meal.Dao.MenuMapper;
 import com.wjw.meal.Dao.MenuTypeMapper;
 import com.wjw.meal.Dao.StoreMapper;
@@ -8,6 +9,7 @@ import com.wjw.meal.Service.MenuService;
 import com.wjw.meal.Service.StoreService;
 import com.wjw.meal.Utils.ExcelUtils;
 import com.wjw.meal.Utils.ImageGender;
+import com.wjw.meal.Utils.NomalUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -55,8 +57,20 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public List<Menu> getAllMenus() {
-        return menuMapper.selectByExample(null);
+    public List<Menu> getAllMenusByPageNum(Integer pn,Integer pagesize) {
+        List<Menu> res = new ArrayList<>();
+        PageHelper.startPage(pn, pagesize);
+        MenuExample menuExample = new MenuExample();
+        menuExample.setOrderByClause("mtype ASC");
+        List<Menu> menuList = menuMapper.selectByExample(menuExample);
+        for (Menu m: menuList) {
+            MenuTypeExample example = new MenuTypeExample();
+            example.createCriteria().andMtidEqualTo(NomalUtils.StringToInt(m.getMtypeid()));
+            m.setMtypeid(menuTypeMapper.selectByExample(example).get(0).getMtname());
+            m.setMpirce("￥\t"+m.getMpirce());
+            res.add(m);
+        }
+        return res;
     }
 
     @Override
@@ -115,12 +129,13 @@ public class MenuServiceImpl implements MenuService {
             //价格
             menu.setMpirce(cloumdata.get(2));
             //是否特色菜
-            menu.setMischara(Integer.valueOf(cloumdata.get(4)) == 1 ? 1 : 0);
+            menu.setMischara(cloumdata.get(4).equals("1") ? "true" : "false");
             //所属种类
             MenuTypeExample menuTypeExample = new MenuTypeExample();
             menuTypeExample.createCriteria().andMtnameEqualTo(cloumdata.get(5));
             MenuType menuType = menuTypeMapper.selectByExample(menuTypeExample).get(0);
-            menu.setMtype(menuType.getMtid());
+            menu.setMtypeid(String.valueOf(menuType.getMtid()));
+            menu.setMtypename(menuType.getMtname());
             //生成图片并将图片url存入数据库
             try {
                 ImageGender.generateImg(menu.getMname(), menu.getMid());

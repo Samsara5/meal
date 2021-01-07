@@ -11,9 +11,11 @@ public class Menu {
 
     private String mnumber;
 
-    private Integer mischara;
+    private String mischara;
 
-    private Integer mtype;
+    private String mtypeid;
+
+    private String mtypename;
 
     private String mimageurl;
 
@@ -57,20 +59,28 @@ public class Menu {
         this.mnumber = mnumber == null ? null : mnumber.trim();
     }
 
-    public Integer getMischara() {
+    public String getMischara() {
         return mischara;
     }
 
-    public void setMischara(Integer mischara) {
-        this.mischara = mischara;
+    public void setMischara(String mischara) {
+        this.mischara = mischara == null ? null : mischara.trim();
     }
 
-    public Integer getMtype() {
-        return mtype;
+    public String getMtypeid() {
+        return mtypeid;
     }
 
-    public void setMtype(Integer mtype) {
-        this.mtype = mtype;
+    public void setMtypeid(String mtypeid) {
+        this.mtypeid = mtypeid == null ? null : mtypeid.trim();
+    }
+
+    public String getMtypename() {
+        return mtypename;
+    }
+
+    public void setMtypename(String mtypename) {
+        this.mtypename = mtypename == null ? null : mtypename.trim();
     }
 
     public String getMimageurl() {

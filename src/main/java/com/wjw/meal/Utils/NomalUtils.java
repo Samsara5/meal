@@ -6,6 +6,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * @author wujiawei
+ * @version 1.0
+ * @Date 2021/1/7 11:29
+ * @Description NomalUtils
+ */
+
 public class NomalUtils {
     public static Date transferStringToDate(String time) {
         Date date = null;

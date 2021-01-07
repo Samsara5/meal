@@ -11,6 +11,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
+/**
+ * @author wujiawei
+ * @version 1.0
+ * @Date 2021/1/7 11:28
+ * @Description StoreController
+ */
+
 @RestController
 @Api(tags = "仓储管理")
 @RequestMapping("/store")

@@ -11,6 +11,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
+/**
+ * @author wujiawei
+ * @version 1.0
+ * @Date 2021/1/7 11:28
+ * @Description MenuController
+ */
+
 @RestController
 @Api(tags = "菜单管理")
 @RequestMapping(value = "/menu")
@@ -55,8 +62,8 @@ public class MenuController {
 
     @ApiOperation(value = "获取所有菜单")
     @GetMapping("/getallmenus")
-    public Message getAllMenus() {
-        return Message.success().add("menus", menuService.getAllMenus());
+    public Message getAllMenus(@RequestParam(value = "pn",defaultValue = "1") Integer pn,@RequestParam(value = "size",defaultValue = "10") Integer pageSize) {
+        return Message.success().add("menus", menuService.getAllMenusByPageNum(pn,pageSize));
     }
 
 

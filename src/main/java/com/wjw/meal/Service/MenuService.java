@@ -9,7 +9,7 @@ public interface MenuService {
 
     List<Menu> getMenusByMenuType(Integer typeId);
 
-    List<Menu> getAllMenus();
+    List<Menu> getAllMenusByPageNum(Integer pn, Integer pageSize);
 
     Menu getMenuByMenuName(String name);
 

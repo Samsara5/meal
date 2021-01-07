@@ -11,6 +11,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * @author wujiawei
+ * @version 1.0
+ * @Date 2021/1/7 11:28
+ * @Description SystemController
+ */
+
 @RestController
 @Api(tags = "系统服务")
 @RequestMapping("/system")

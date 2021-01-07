@@ -11,9 +11,16 @@ import java.util.regex.Pattern;
 
 import javax.imageio.ImageIO;
 
+/**
+ * @author wujiawei
+ * @version 1.0
+ * @Date 2021/1/7 11:29
+ * @Description ImageGender
+ */
+
 public class ImageGender {
     public static void main(String[] args) throws IOException {
-        String name = "雪碧（罐装）";
+        String name = "null";
         generateImg(name, name);
     }
 

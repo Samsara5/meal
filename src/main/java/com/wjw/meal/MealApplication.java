@@ -8,6 +8,13 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+/**
+ * @author wujiawei
+ * @version 1.0
+ * @Date 2021/1/7 11:29
+ * @Description MealApplication
+ */
+
 @SpringBootApplication
 @MapperScan("com.wjw.meal.Dao")
 public class MealApplication {

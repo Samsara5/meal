@@ -7,8 +7,9 @@
     <result column="mmateria" property="mmateria" jdbcType="VARCHAR" />
     <result column="mpirce" property="mpirce" jdbcType="VARCHAR" />
     <result column="mnumber" property="mnumber" jdbcType="VARCHAR" />
-    <result column="mischara" property="mischara" jdbcType="INTEGER" />
-    <result column="mtype" property="mtype" jdbcType="INTEGER" />
+    <result column="mischara" property="mischara" jdbcType="VARCHAR" />
+    <result column="mtypeid" property="mtypeid" jdbcType="VARCHAR" />
+    <result column="mtypename" property="mtypename" jdbcType="VARCHAR" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.wjw.meal.Pojo.Menu" extends="BaseResultMap" >
     <result column="mimageurl" property="mimageurl" jdbcType="LONGVARCHAR" />
@@ -72,7 +73,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    mid, mname, mmateria, mpirce, mnumber, mischara, mtype
+    mid, mname, mmateria, mpirce, mnumber, mischara, mtypeid, mtypename
   </sql>
   <sql id="Blob_Column_List" >
     mimageurl
@@ -128,10 +129,12 @@
   <insert id="insert" parameterType="com.wjw.meal.Pojo.Menu" >
     insert into re_menu (mid, mname, mmateria, 
       mpirce, mnumber, mischara, 
-      mtype, mimageurl)
+      mtypeid, mtypename, mimageurl
+      )
     values (#{mid,jdbcType=VARCHAR}, #{mname,jdbcType=VARCHAR}, #{mmateria,jdbcType=VARCHAR}, 
-      #{mpirce,jdbcType=VARCHAR}, #{mnumber,jdbcType=VARCHAR}, #{mischara,jdbcType=INTEGER}, 
-      #{mtype,jdbcType=INTEGER}, #{mimageurl,jdbcType=LONGVARCHAR})
+      #{mpirce,jdbcType=VARCHAR}, #{mnumber,jdbcType=VARCHAR}, #{mischara,jdbcType=VARCHAR}, 
+      #{mtypeid,jdbcType=VARCHAR}, #{mtypename,jdbcType=VARCHAR}, #{mimageurl,jdbcType=LONGVARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.wjw.meal.Pojo.Menu" >
     insert into re_menu
@@ -154,8 +157,11 @@
       <if test="mischara != null" >
         mischara,
       </if>
-      <if test="mtype != null" >
-        mtype,
+      <if test="mtypeid != null" >
+        mtypeid,
+      </if>
+      <if test="mtypename != null" >
+        mtypename,
       </if>
       <if test="mimageurl != null" >
         mimageurl,
@@ -178,10 +184,13 @@
         #{mnumber,jdbcType=VARCHAR},
       </if>
       <if test="mischara != null" >
-        #{mischara,jdbcType=INTEGER},
+        #{mischara,jdbcType=VARCHAR},
       </if>
-      <if test="mtype != null" >
-        #{mtype,jdbcType=INTEGER},
+      <if test="mtypeid != null" >
+        #{mtypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="mtypename != null" >
+        #{mtypename,jdbcType=VARCHAR},
       </if>
       <if test="mimageurl != null" >
         #{mimageurl,jdbcType=LONGVARCHAR},
@@ -213,10 +222,13 @@
         mnumber = #{record.mnumber,jdbcType=VARCHAR},
       </if>
       <if test="record.mischara != null" >
-        mischara = #{record.mischara,jdbcType=INTEGER},
+        mischara = #{record.mischara,jdbcType=VARCHAR},
       </if>
-      <if test="record.mtype != null" >
-        mtype = #{record.mtype,jdbcType=INTEGER},
+      <if test="record.mtypeid != null" >
+        mtypeid = #{record.mtypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mtypename != null" >
+        mtypename = #{record.mtypename,jdbcType=VARCHAR},
       </if>
       <if test="record.mimageurl != null" >
         mimageurl = #{record.mimageurl,jdbcType=LONGVARCHAR},
@@ -233,8 +245,9 @@
       mmateria = #{record.mmateria,jdbcType=VARCHAR},
       mpirce = #{record.mpirce,jdbcType=VARCHAR},
       mnumber = #{record.mnumber,jdbcType=VARCHAR},
-      mischara = #{record.mischara,jdbcType=INTEGER},
-      mtype = #{record.mtype,jdbcType=INTEGER},
+      mischara = #{record.mischara,jdbcType=VARCHAR},
+      mtypeid = #{record.mtypeid,jdbcType=VARCHAR},
+      mtypename = #{record.mtypename,jdbcType=VARCHAR},
       mimageurl = #{record.mimageurl,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -247,8 +260,9 @@
       mmateria = #{record.mmateria,jdbcType=VARCHAR},
       mpirce = #{record.mpirce,jdbcType=VARCHAR},
       mnumber = #{record.mnumber,jdbcType=VARCHAR},
-      mischara = #{record.mischara,jdbcType=INTEGER},
-      mtype = #{record.mtype,jdbcType=INTEGER}
+      mischara = #{record.mischara,jdbcType=VARCHAR},
+      mtypeid = #{record.mtypeid,jdbcType=VARCHAR},
+      mtypename = #{record.mtypename,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -269,10 +283,13 @@
         mnumber = #{mnumber,jdbcType=VARCHAR},
       </if>
       <if test="mischara != null" >
-        mischara = #{mischara,jdbcType=INTEGER},
+        mischara = #{mischara,jdbcType=VARCHAR},
       </if>
-      <if test="mtype != null" >
-        mtype = #{mtype,jdbcType=INTEGER},
+      <if test="mtypeid != null" >
+        mtypeid = #{mtypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="mtypename != null" >
+        mtypename = #{mtypename,jdbcType=VARCHAR},
       </if>
       <if test="mimageurl != null" >
         mimageurl = #{mimageurl,jdbcType=LONGVARCHAR},
@@ -286,8 +303,9 @@
       mmateria = #{mmateria,jdbcType=VARCHAR},
       mpirce = #{mpirce,jdbcType=VARCHAR},
       mnumber = #{mnumber,jdbcType=VARCHAR},
-      mischara = #{mischara,jdbcType=INTEGER},
-      mtype = #{mtype,jdbcType=INTEGER},
+      mischara = #{mischara,jdbcType=VARCHAR},
+      mtypeid = #{mtypeid,jdbcType=VARCHAR},
+      mtypename = #{mtypename,jdbcType=VARCHAR},
       mimageurl = #{mimageurl,jdbcType=LONGVARCHAR}
     where mid = #{mid,jdbcType=VARCHAR}
   </update>
@@ -297,8 +315,9 @@
       mmateria = #{mmateria,jdbcType=VARCHAR},
       mpirce = #{mpirce,jdbcType=VARCHAR},
       mnumber = #{mnumber,jdbcType=VARCHAR},
-      mischara = #{mischara,jdbcType=INTEGER},
-      mtype = #{mtype,jdbcType=INTEGER}
+      mischara = #{mischara,jdbcType=VARCHAR},
+      mtypeid = #{mtypeid,jdbcType=VARCHAR},
+      mtypename = #{mtypename,jdbcType=VARCHAR}
     where mid = #{mid,jdbcType=VARCHAR}
   </update>
 </mapper>
