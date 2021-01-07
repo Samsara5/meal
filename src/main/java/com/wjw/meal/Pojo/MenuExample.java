@@ -454,6 +454,76 @@ public class MenuExample {
             return (Criteria) this;
         }
 
+        public Criteria andMimageurlIsNull() {
+            addCriterion("mimageurl is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMimageurlIsNotNull() {
+            addCriterion("mimageurl is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMimageurlEqualTo(String value) {
+            addCriterion("mimageurl =", value, "mimageurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andMimageurlNotEqualTo(String value) {
+            addCriterion("mimageurl <>", value, "mimageurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andMimageurlGreaterThan(String value) {
+            addCriterion("mimageurl >", value, "mimageurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andMimageurlGreaterThanOrEqualTo(String value) {
+            addCriterion("mimageurl >=", value, "mimageurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andMimageurlLessThan(String value) {
+            addCriterion("mimageurl <", value, "mimageurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andMimageurlLessThanOrEqualTo(String value) {
+            addCriterion("mimageurl <=", value, "mimageurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andMimageurlLike(String value) {
+            addCriterion("mimageurl like", value, "mimageurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andMimageurlNotLike(String value) {
+            addCriterion("mimageurl not like", value, "mimageurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andMimageurlIn(List<String> values) {
+            addCriterion("mimageurl in", values, "mimageurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andMimageurlNotIn(List<String> values) {
+            addCriterion("mimageurl not in", values, "mimageurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andMimageurlBetween(String value1, String value2) {
+            addCriterion("mimageurl between", value1, value2, "mimageurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andMimageurlNotBetween(String value1, String value2) {
+            addCriterion("mimageurl not between", value1, value2, "mimageurl");
+            return (Criteria) this;
+        }
+
         public Criteria andMischaraIsNull() {
             addCriterion("mischara is null");
             return (Criteria) this;
@@ -661,6 +731,76 @@ public class MenuExample {
 
         public Criteria andMtypenameNotBetween(String value1, String value2) {
             addCriterion("mtypename not between", value1, value2, "mtypename");
+            return (Criteria) this;
+        }
+
+        public Criteria andMnuitIsNull() {
+            addCriterion("mnuit is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMnuitIsNotNull() {
+            addCriterion("mnuit is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMnuitEqualTo(String value) {
+            addCriterion("mnuit =", value, "mnuit");
+            return (Criteria) this;
+        }
+
+        public Criteria andMnuitNotEqualTo(String value) {
+            addCriterion("mnuit <>", value, "mnuit");
+            return (Criteria) this;
+        }
+
+        public Criteria andMnuitGreaterThan(String value) {
+            addCriterion("mnuit >", value, "mnuit");
+            return (Criteria) this;
+        }
+
+        public Criteria andMnuitGreaterThanOrEqualTo(String value) {
+            addCriterion("mnuit >=", value, "mnuit");
+            return (Criteria) this;
+        }
+
+        public Criteria andMnuitLessThan(String value) {
+            addCriterion("mnuit <", value, "mnuit");
+            return (Criteria) this;
+        }
+
+        public Criteria andMnuitLessThanOrEqualTo(String value) {
+            addCriterion("mnuit <=", value, "mnuit");
+            return (Criteria) this;
+        }
+
+        public Criteria andMnuitLike(String value) {
+            addCriterion("mnuit like", value, "mnuit");
+            return (Criteria) this;
+        }
+
+        public Criteria andMnuitNotLike(String value) {
+            addCriterion("mnuit not like", value, "mnuit");
+            return (Criteria) this;
+        }
+
+        public Criteria andMnuitIn(List<String> values) {
+            addCriterion("mnuit in", values, "mnuit");
+            return (Criteria) this;
+        }
+
+        public Criteria andMnuitNotIn(List<String> values) {
+            addCriterion("mnuit not in", values, "mnuit");
+            return (Criteria) this;
+        }
+
+        public Criteria andMnuitBetween(String value1, String value2) {
+            addCriterion("mnuit between", value1, value2, "mnuit");
+            return (Criteria) this;
+        }
+
+        public Criteria andMnuitNotBetween(String value1, String value2) {
+            addCriterion("mnuit not between", value1, value2, "mnuit");
             return (Criteria) this;
         }
     }

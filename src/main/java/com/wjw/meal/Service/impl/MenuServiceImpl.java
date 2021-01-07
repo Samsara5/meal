@@ -1,6 +1,7 @@
 package com.wjw.meal.Service.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.wjw.meal.Dao.MenuMapper;
 import com.wjw.meal.Dao.MenuTypeMapper;
 import com.wjw.meal.Dao.StoreMapper;
@@ -9,7 +10,6 @@ import com.wjw.meal.Service.MenuService;
 import com.wjw.meal.Service.StoreService;
 import com.wjw.meal.Utils.ExcelUtils;
 import com.wjw.meal.Utils.ImageGender;
-import com.wjw.meal.Utils.NomalUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -57,20 +57,13 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public List<Menu> getAllMenusByPageNum(Integer pn,Integer pagesize) {
-        List<Menu> res = new ArrayList<>();
-        PageHelper.startPage(pn, pagesize);
+    public PageInfo getAllMenusByPageNum(Integer pn, Integer pagesize) {
         MenuExample menuExample = new MenuExample();
-        menuExample.setOrderByClause("mtype ASC");
-        List<Menu> menuList = menuMapper.selectByExample(menuExample);
-        for (Menu m: menuList) {
-            MenuTypeExample example = new MenuTypeExample();
-            example.createCriteria().andMtidEqualTo(NomalUtils.StringToInt(m.getMtypeid()));
-            m.setMtypeid(menuTypeMapper.selectByExample(example).get(0).getMtname());
-            m.setMpirce("￥\t"+m.getMpirce());
-            res.add(m);
-        }
-        return res;
+        menuExample.setOrderByClause("mtypeid ASC");
+        PageHelper.startPage(pn, pagesize);
+        List<Menu> menus = menuMapper.selectByExample(menuExample);
+        PageInfo menusPage = new PageInfo(menus,pagesize);
+        return menusPage;
     }
 
     @Override

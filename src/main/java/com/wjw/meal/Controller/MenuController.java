@@ -34,7 +34,7 @@ public class MenuController {
     }
 
     @ApiOperation(value = "修改菜单项")
-    @PutMapping("/updatemenu")
+    @PostMapping("/updatemenu")
     public Message updatemenu(@RequestBody Menu menu) {
         menuService.updateMenu(menu);
         return Message.success();

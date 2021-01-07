@@ -1,5 +1,6 @@
 package com.wjw.meal.Service;
 
+import com.github.pagehelper.PageInfo;
 import com.wjw.meal.Pojo.Menu;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -9,7 +10,7 @@ public interface MenuService {
 
     List<Menu> getMenusByMenuType(Integer typeId);
 
-    List<Menu> getAllMenusByPageNum(Integer pn, Integer pageSize);
+    PageInfo getAllMenusByPageNum(Integer pn, Integer pageSize);
 
     Menu getMenuByMenuName(String name);
 
