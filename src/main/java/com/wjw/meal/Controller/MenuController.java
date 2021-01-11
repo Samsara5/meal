@@ -54,10 +54,16 @@ public class MenuController {
         return Message.success();
     }
 
-    @ApiOperation(value = "通过id查询菜单")
+    @ApiOperation(value = "通过typeid查询菜单")
     @GetMapping("/getmenusbytype")
     public Message getMenusbyType(@RequestParam String id) {
         return Message.success().add("menus", menuService.getMenusByMenuType(Integer.valueOf(id)));
+    }
+
+    @ApiOperation(value = "通过Id查询菜单")
+    @GetMapping("/getMenuById")
+    public Message getMenuById(@RequestParam String id){
+        return Message.success().add("menu",menuService.getMenuById(id));
     }
 
     @ApiOperation(value = "获取所有菜单")
@@ -66,6 +72,11 @@ public class MenuController {
         return Message.success().add("menus", menuService.getAllMenusByPageNum(pn,pageSize));
     }
 
+    @ApiOperation(value = "获取所有菜单类型")
+    @GetMapping("/getAllMenuTypes")
+    public Message getAllMenuTypes(){
+        return menuService.getAllMenuTypes();
+    }
 
     @ApiOperation(value = "导入Excel批量导入菜单")
     @PostMapping("importmenusbyexcel")

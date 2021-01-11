@@ -34,9 +34,7 @@ public class SystemController {
 
     @ApiOperation(value = "下载员工导入模板")
     @GetMapping("/getemployeeimporttemplate")
-    public void getEmployeeExcelTemplate(HttpServletResponse response) {
-        systemService.getEmployeeExcelTemplate(response);
-    }
+    public void getEmployeeExcelTemplate(HttpServletResponse response) { systemService.getEmployeeExcelTemplate(response); }
 
     @ApiOperation(value = "下载用户导入模板")
     @GetMapping("/getuserimporttemplate")

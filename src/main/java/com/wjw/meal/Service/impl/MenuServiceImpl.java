@@ -1,5 +1,7 @@
 package com.wjw.meal.Service.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.wjw.meal.Dao.MenuMapper;
@@ -17,6 +19,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 import java.util.*;
+
+/**
+ * @author wujiawei
+ * @version 1.0
+ * @Date 2021/1/11 15:03
+ * @Description MenuServiceImpl
+ */
 
 @Service
 public class MenuServiceImpl implements MenuService {
@@ -139,5 +148,27 @@ public class MenuServiceImpl implements MenuService {
             menu.setMimageurl("D://menuImage/" + menu.getMid() + ".jpg");
             addMenu(menu);
         }
+    }
+
+    @Override
+    public Message getAllMenuTypes() {
+        List<JSONObject> MenuTypes = new ArrayList<>();
+        MenuTypeExample example =new MenuTypeExample();
+        example.createCriteria().andMpidEqualTo(0);
+        List<MenuType> mainMenuTypes = menuTypeMapper.selectByExample(example);
+        for (MenuType ptype : mainMenuTypes) {
+            example.clear();
+            example.createCriteria().andMpidEqualTo(ptype.getMtid());
+            List<MenuType> childrenlist = menuTypeMapper.selectByExample(example);
+            JSONObject object = (JSONObject) JSON.toJSON(ptype);
+            object.put("children", childrenlist);
+            MenuTypes.add(object);
+        }
+        return Message.success().add("MenuTypes", MenuTypes);
+    }
+
+    @Override
+    public Menu getMenuById(String id) {
+        return menuMapper.selectByPrimaryKey(id);
     }
 }
