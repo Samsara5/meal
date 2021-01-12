@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author wujiawei
@@ -41,15 +42,15 @@ public class MenuController {
     }
 
     @ApiOperation(value = "通过id删除单个菜单")
-    @DeleteMapping("/deletemenu")
-    public Message delmenubyid(@RequestParam String id) {
-        menuService.delMenuById(id);
+    @PostMapping("/deletemenu")
+    public Message delmenubyid(@RequestBody Map<String,String> id){
+        menuService.delMenuById(id.get("id"));
         return Message.success();
     }
 
     @ApiOperation(value = "通过id批量删除")
-    @DeleteMapping("/autodelmenus")
-    public Message delmenubyids(@RequestParam List<String> ids) {
+    @PostMapping("/autodelmenus")
+    public Message delmenubyids(@RequestBody List<String> ids) {
         menuService.delmenubyids(ids);
         return Message.success();
     }
@@ -80,8 +81,9 @@ public class MenuController {
 
     @ApiOperation(value = "导入Excel批量导入菜单")
     @PostMapping("importmenusbyexcel")
-    public void importMenusByExcel(@RequestParam("file") MultipartFile file) {
+    public String importMenusByExcel(@RequestParam("file") MultipartFile file) {
         menuService.importMenusByExcel(file);
+        return "导入成功!";
     }
 
 
