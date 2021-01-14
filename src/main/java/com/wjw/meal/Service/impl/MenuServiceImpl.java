@@ -43,7 +43,7 @@ public class MenuServiceImpl implements MenuService {
     StoreService storeService;
 
     @Override
-    public List<Menu> getMenusByMenuType(Integer typeId) {
+    public PageInfo getMenusByMenuType(Integer typeId,Integer pn,Integer pageSize) {
         MenuTypeExample type = new MenuTypeExample();
         type.createCriteria().andMlevelEqualTo(2);
         type.createCriteria().andMpidEqualTo(typeId);
@@ -62,7 +62,10 @@ public class MenuServiceImpl implements MenuService {
         }
         MenuExample example = new MenuExample();
         example.createCriteria().andMidIn(itemsid);
-        return menuMapper.selectByExample(example);
+        PageHelper.startPage(pn, pageSize);
+        List<Menu> menus = menuMapper.selectByExample(example);
+        PageInfo menusPage = new PageInfo(menus,pageSize);
+        return menusPage;
     }
 
     @Override
@@ -145,7 +148,7 @@ public class MenuServiceImpl implements MenuService {
                 e.printStackTrace();
                 Assert.isTrue(true, "生成图片错误!");
             }
-            menu.setMimageurl("D://menuImage/" + menu.getMid() + ".jpg");
+            menu.setMimageurl(menu.getMid() + ".jpg");
             addMenu(menu);
         }
     }

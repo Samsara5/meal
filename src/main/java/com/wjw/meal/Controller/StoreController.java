@@ -61,10 +61,15 @@ public class StoreController {
         return Message.success();
     }
 
-    @ApiOperation("通过名字查询材料")
+    @ApiOperation("通查询所有材料")
     @GetMapping("/getallstores")
     public Message getAllStore() {
         return Message.success().add("stores", storeService.getAllStrores());
     }
 
+    @ApiOperation("id与材料名称对应map")
+    @GetMapping("/getStoreNames")
+    public Message getStoreNames() {
+        return Message.success().add("stores", storeService.getStoreNames());
+    }
 }

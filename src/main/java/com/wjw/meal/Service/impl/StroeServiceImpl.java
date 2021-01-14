@@ -170,6 +170,17 @@ public class StroeServiceImpl implements StoreService {
         return storeMapper.selectByExample(example).get(0);
     }
 
+    @Override
+    public Map<String, String> getStoreNames() {
+        Map<String,String> res = new HashMap<>();
+        List<Store> allStores = getAllStrores();
+        for (Store s :allStores) {
+            res.put(s.getStroeid(),s.getStroename());
+        }
+        return res;
+    }
+
+
     //通过store去更新菜单 传入Excel
     @Override
     public void initMenuByStore() {

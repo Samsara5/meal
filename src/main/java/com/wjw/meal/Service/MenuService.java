@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface MenuService {
 
-    List<Menu> getMenusByMenuType(Integer typeId);
+    PageInfo getMenusByMenuType(Integer typeId,Integer pn,Integer pageSize);
 
     PageInfo getAllMenusByPageNum(Integer pn, Integer pageSize);
 

@@ -6,6 +6,7 @@ import com.wjw.meal.Dao.NavigationMapper;
 import com.wjw.meal.Pojo.Message;
 import com.wjw.meal.Pojo.Navigation;
 import com.wjw.meal.Pojo.NavigationExample;
+import com.wjw.meal.Service.MenuService;
 import com.wjw.meal.Service.SystemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -14,10 +15,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +28,9 @@ public class SystemServiceImpl implements SystemService {
 
     @Autowired
     ResourceLoader resourceLoader;
+
+    @Autowired
+    MenuService menuService;
 
     @Override
     public Message getNavigation() {
@@ -149,6 +151,36 @@ public class SystemServiceImpl implements SystemService {
             int length;
             while ((length = inputStream.read()) != -1) {
                 outputStream.write(length);
+            }
+            inputStream.close();
+            outputStream.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void getImageFile(HttpServletResponse response, String menuId) {
+        String defaultImageName = "404.png";
+        String path = null;
+        try {
+            String imgName = menuService.getMenuById(menuId).getMimageurl();
+            path = "D:\\menuImage\\"+imgName;
+            //若没有查到该图片名则设置默认图片
+            if (imgName == null || imgName.equals("")){
+                imgName = defaultImageName;
+                path =  "D:\\menuImage\\"+defaultImageName;
+            }
+            //设置文件的类型
+            response.setContentType("multipart/form-data");
+            // 确保弹出下载对话框
+            response.setHeader("Content-disposition", "attachment; filename=" + URLEncoder.encode(imgName, "UTF-8"));
+            FileInputStream inputStream = new FileInputStream(path);
+            OutputStream outputStream = response.getOutputStream();
+            byte[] bytes = new byte[4096];
+            int length;
+            while ((length = inputStream.read(bytes)) > 0) {
+                outputStream.write(bytes, 0, length);
             }
             inputStream.close();
             outputStream.flush();

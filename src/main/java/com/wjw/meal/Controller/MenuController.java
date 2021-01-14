@@ -43,7 +43,7 @@ public class MenuController {
 
     @ApiOperation(value = "通过id删除单个菜单")
     @PostMapping("/deletemenu")
-    public Message delmenubyid(@RequestBody Map<String,String> id){
+    public Message delmenubyid(@RequestBody Map<String, String> id) {
         menuService.delMenuById(id.get("id"));
         return Message.success();
     }
@@ -55,27 +55,31 @@ public class MenuController {
         return Message.success();
     }
 
-    @ApiOperation(value = "通过typeid查询菜单")
-    @GetMapping("/getmenusbytype")
-    public Message getMenusbyType(@RequestParam String id) {
-        return Message.success().add("menus", menuService.getMenusByMenuType(Integer.valueOf(id)));
+    @ApiOperation(value = "通过typeId查询菜单")
+    @GetMapping("/getMenusByType")
+    public Message getMenusByType(@RequestBody Map<String, String> queryCondition) {
+        return Message.success()
+                .add("menus", menuService.getMenusByMenuType(
+                        Integer.valueOf(queryCondition.get("typeId")),
+                        Integer.valueOf(queryCondition.get("pn")),
+                        Integer.valueOf(queryCondition.get("pageSize"))));
     }
 
     @ApiOperation(value = "通过Id查询菜单")
     @GetMapping("/getMenuById")
-    public Message getMenuById(@RequestParam String id){
-        return Message.success().add("menu",menuService.getMenuById(id));
+    public Message getMenuById(@RequestParam String id) {
+        return Message.success().add("menu", menuService.getMenuById(id));
     }
 
     @ApiOperation(value = "获取所有菜单")
     @GetMapping("/getallmenus")
-    public Message getAllMenus(@RequestParam(value = "pn",defaultValue = "1") Integer pn,@RequestParam(value = "size",defaultValue = "10") Integer pageSize) {
-        return Message.success().add("menus", menuService.getAllMenusByPageNum(pn,pageSize));
+    public Message getAllMenus(@RequestParam(value = "pn", defaultValue = "1") Integer pn, @RequestParam(value = "size", defaultValue = "10") Integer pageSize) {
+        return Message.success().add("menus", menuService.getAllMenusByPageNum(pn, pageSize));
     }
 
     @ApiOperation(value = "获取所有菜单类型")
     @GetMapping("/getAllMenuTypes")
-    public Message getAllMenuTypes(){
+    public Message getAllMenuTypes() {
         return menuService.getAllMenuTypes();
     }
 

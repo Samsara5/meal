@@ -4,6 +4,7 @@ import com.wjw.meal.Pojo.Store;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 
 public interface StoreService {
 
@@ -20,6 +21,8 @@ public interface StoreService {
     List<Store> getAllStrores();
 
     Store getStoreByName(String name);
+
+    Map<String, String> getStoreNames();
 
     void initMenuByStore();
 }
