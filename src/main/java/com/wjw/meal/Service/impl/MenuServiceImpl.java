@@ -115,9 +115,16 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public void importMenusByExcel(MultipartFile file) {
-        ExcelUtils sheet = new ExcelUtils(file, "menu");
-        Map<String, List<String>> sheetinfo = sheet.readExcelData();
+    public String importMenusByExcel(MultipartFile file) {
+        ExcelUtils sheet;
+        Map<String, List<String>> sheetinfo=null;
+        try {
+            sheet = new ExcelUtils(file, "menu");
+            sheetinfo = sheet.readExcelData();
+        }catch (Exception e){
+            e.printStackTrace();
+            return sheetinfo.get("erro").get(0);
+        }
         for (int i = 1; i < sheetinfo.size(); i++) {
             List<String> cloumdata = sheetinfo.get(String.valueOf(i));
             Menu menu = new Menu();
@@ -151,6 +158,7 @@ public class MenuServiceImpl implements MenuService {
             menu.setMimageurl(menu.getMid() + ".jpg");
             addMenu(menu);
         }
+        return "导入成功";
     }
 
     @Override

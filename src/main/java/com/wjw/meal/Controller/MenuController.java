@@ -86,8 +86,7 @@ public class MenuController {
     @ApiOperation(value = "导入Excel批量导入菜单")
     @PostMapping("importmenusbyexcel")
     public String importMenusByExcel(@RequestParam("file") MultipartFile file) {
-        menuService.importMenusByExcel(file);
-        return "导入成功!";
+       return menuService.importMenusByExcel(file);
     }
 
 

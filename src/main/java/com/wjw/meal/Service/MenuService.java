@@ -24,7 +24,7 @@ public interface MenuService {
 
     void delmenubyids(List<String> ids);
 
-    void importMenusByExcel(MultipartFile file);
+    String importMenusByExcel(MultipartFile file);
 
     Message getAllMenuTypes();
 
