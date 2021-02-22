@@ -29,4 +29,6 @@ public interface MenuService {
     Message getAllMenuTypes();
 
     Menu getMenuById(String id);
+
+    PageInfo getSpecialMenus(Integer pn, Integer pageSize);
 }

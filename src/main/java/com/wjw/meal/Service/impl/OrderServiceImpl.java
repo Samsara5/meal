@@ -21,8 +21,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.*;
 
-import static com.wjw.meal.Utils.NomalUtils.transferStringToDate;
-
 @Service
 public class OrderServiceImpl implements OrderService {
 
@@ -138,14 +136,16 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Order> getAllOrders() {
-        return orderMapper.selectByExample(null);
+        return orderMapper.selectByExampleWithBLOBs(null);
     }
 
     @Override
     public List<Order> getOrdersSelective(String byWhat, String condition) {
         if (byWhat.equals("time")) {
             String[] times = condition.split(",");
-            return selectByTime(times[0], times[1]);
+            List<Order> orders = selectByTime(times[0], times[1]);
+            List<Order> ordersRes = formatOrderContent(orders);
+            return ordersRes;
         }
         if (byWhat.equals("customer")) {
             return selectByUserId(condition);
@@ -158,8 +158,9 @@ public class OrderServiceImpl implements OrderService {
 
     public List<Order> selectByTime(String start, String end) {
         OrderExample example = new OrderExample();
-        example.createCriteria().andCreatetimeBetween(transferStringToDate(start), transferStringToDate(end));
-        return formatOrderContent(orderMapper.selectByExample(example));
+        example.createCriteria().andCreatetimeGreaterThan(NomalUtils.transferStringToDate(start));
+        example.createCriteria().andCreatetimeLessThan(NomalUtils.transferStringToDate(end));
+        return formatOrderContent(orderMapper.selectByExampleWithBLOBs(example));
     }
 
     public List<Order> selectByUserId(String UId) {

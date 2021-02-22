@@ -44,24 +44,8 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public PageInfo getMenusByMenuType(Integer typeId,Integer pn,Integer pageSize) {
-        MenuTypeExample type = new MenuTypeExample();
-        type.createCriteria().andMlevelEqualTo(2);
-        type.createCriteria().andMpidEqualTo(typeId);
-        List<MenuType> submenus = menuTypeMapper.selectByExample(type);
-        List<Integer> subsubmenus = new ArrayList<>();
-        for (MenuType m : submenus) {
-            subsubmenus.add(m.getMtid());
-        }
-        type.clear();
-        type.createCriteria().andMlevelEqualTo(3);
-        type.createCriteria().andMpidIn(subsubmenus);
-        List<MenuType> items = menuTypeMapper.selectByExample(type);
-        List<String> itemsid = new ArrayList<>();
-        for (MenuType m : items) {
-            itemsid.add(String.valueOf(m.getMtid()));
-        }
         MenuExample example = new MenuExample();
-        example.createCriteria().andMidIn(itemsid);
+        example.createCriteria().andMtypeidEqualTo(String.valueOf(typeId));
         PageHelper.startPage(pn, pageSize);
         List<Menu> menus = menuMapper.selectByExample(example);
         PageInfo menusPage = new PageInfo(menus,pageSize);
@@ -181,5 +165,16 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public Menu getMenuById(String id) {
         return menuMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public PageInfo getSpecialMenus(Integer pn, Integer pageSize) {
+        MenuExample example =  new MenuExample();
+        example.setOrderByClause("mtypeid ASC");
+        example.createCriteria().andMischaraEqualTo("true");
+        PageHelper.startPage(pn,pageSize);
+        List<Menu> menus = menuMapper.selectByExample(example);
+        PageInfo menusPage = new PageInfo(menus,pageSize);
+        return menusPage;
     }
 }

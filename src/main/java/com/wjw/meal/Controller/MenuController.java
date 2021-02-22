@@ -57,12 +57,21 @@ public class MenuController {
 
     @ApiOperation(value = "通过typeId查询菜单")
     @GetMapping("/getMenusByType")
-    public Message getMenusByType(@RequestBody Map<String, String> queryCondition) {
+    public Message getMenusByType(@RequestParam("typeId")Integer typeId,@RequestParam(value = "pn", defaultValue = "1") Integer pn, @RequestParam(value = "size", defaultValue = "10") Integer pageSize) {
         return Message.success()
                 .add("menus", menuService.getMenusByMenuType(
-                        Integer.valueOf(queryCondition.get("typeId")),
-                        Integer.valueOf(queryCondition.get("pn")),
-                        Integer.valueOf(queryCondition.get("pageSize"))));
+                        Integer.valueOf(typeId),
+                        Integer.valueOf(pn),
+                        Integer.valueOf(pageSize)));
+    }
+
+    @ApiOperation(value ="查询特色菜")
+    @GetMapping("/getSpecialMenus")
+    public  Message getSpecialMenus(@RequestParam(value = "pn", defaultValue = "1") Integer pn, @RequestParam(value = "size", defaultValue = "10") Integer pageSize){
+        return Message.success()
+                .add("menus", menuService.getSpecialMenus(
+                        Integer.valueOf(pn),
+                        Integer.valueOf(pageSize)));
     }
 
     @ApiOperation(value = "通过Id查询菜单")

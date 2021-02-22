@@ -13,6 +13,9 @@
     <result column="mtypename" property="mtypename" jdbcType="VARCHAR" />
     <result column="mnuit" property="mnuit" jdbcType="VARCHAR" />
   </resultMap>
+  <select id="selectMenusByTypeId" resultMap="BaseResultMap" parameterType="Integer">
+       SELECT * FROM re_menu WHERE mtypeid IN (SELECT mtid FROM re_menutpye  WHERE  mid = #{mid});
+    </select>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
