@@ -2,6 +2,8 @@ package com.wjw.meal.Service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.wjw.meal.Dao.OrderContentMapper;
 import com.wjw.meal.Dao.OrderMapper;
 import com.wjw.meal.Dao.StoreMapper;
@@ -16,7 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.web.multipart.MultipartFile;
-
+import org.apache.commons.lang.StringEscapeUtils;
 
 
 import java.util.*;
@@ -25,6 +27,7 @@ import java.util.*;
 public class OrderServiceImpl implements OrderService {
 
     @Autowired
+
     OrderMapper orderMapper;
 
     @Autowired
@@ -41,13 +44,6 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     MenuService menuService;
-
-    @Override
-    public void addOrder(Order order) {
-        order.setUid(NomalUtils.getUUID());
-        order.setContent(formatOrderContentToIds(order.getContent()));
-        orderMapper.insert(order);
-    }
 
     @Override
     public void importOrderByExcel(MultipartFile file) {
@@ -102,6 +98,13 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public void addOrder(Order order) {
+        order.setUid(NomalUtils.getUUID());
+        order.setContent(formatOrderContentToIds(order.getContent()));
+        orderMapper.insert(order);
+    }
+
+    @Override
     public void delOrderById(String id) {
         Order order = orderMapper.selectByPrimaryKey(id);
         Assert.notNull(order, "订单不存在！");
@@ -135,52 +138,64 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> getAllOrders() {
-        return orderMapper.selectByExampleWithBLOBs(null);
+    public PageInfo getAllOrders(Integer pn,Integer pagesize) {
+        PageHelper.startPage(pn, pagesize);
+        List<Order> orders = orderMapper.selectByExample(null);
+        PageInfo ordersPage = new PageInfo(orders,pagesize);
+        return ordersPage;
     }
 
     @Override
-    public List<Order> getOrdersSelective(String byWhat, String condition) {
+    public PageInfo getOrdersSelective(String byWhat, String condition,Integer pn,Integer pageSize) {
         if (byWhat.equals("time")) {
             String[] times = condition.split(",");
-            List<Order> orders = selectByTime(times[0], times[1]);
-            List<Order> ordersRes = formatOrderContent(orders);
-            return ordersRes;
+            return selectByTime(times[0], times[1],pn,pageSize);
         }
         if (byWhat.equals("customer")) {
-            return selectByUserId(condition);
+            return selectByUserId(condition,pn,pageSize);
         }
         if (byWhat.equals("state")) {
-            return selectByState(condition);
+            return selectByState(condition,pn,pageSize);
         }
         return null;
     }
 
-    public List<Order> selectByTime(String start, String end) {
+    public PageInfo selectByTime(String start, String end,Integer pn,Integer pageSize) {
         OrderExample example = new OrderExample();
         example.createCriteria().andCreatetimeGreaterThan(NomalUtils.transferStringToDate(start));
         example.createCriteria().andCreatetimeLessThan(NomalUtils.transferStringToDate(end));
-        return formatOrderContent(orderMapper.selectByExampleWithBLOBs(example));
+        PageHelper.startPage(pn, pageSize);
+        List<Order> orders = orderMapper.selectByExample(example);
+        PageInfo ordersPage = new PageInfo(orders,pageSize);
+        return ordersPage;
     }
 
-    public List<Order> selectByUserId(String UId) {
+    public PageInfo selectByUserId(String UId,Integer pn,Integer pageSize) {
         OrderExample example = new OrderExample();
         example.createCriteria().andUidEqualTo(UId);
-        return formatOrderContent(orderMapper.selectByExample(example));
+        PageHelper.startPage(pn, pageSize);
+        List<Order> orders = orderMapper.selectByExample(example);
+        PageInfo ordersPage = new PageInfo(orders,pageSize);
+        return ordersPage;
     }
 
-    public List<Order> selectByState(String State) {
+    public PageInfo selectByState(String State,Integer pn,Integer pageSize) {
         OrderExample example = new OrderExample();
         example.createCriteria().andStateEqualTo(Integer.valueOf(State));
-        return formatOrderContent(orderMapper.selectByExample(example));
+        PageHelper.startPage(pn, pageSize);
+        List<Order> orders = orderMapper.selectByExample(example);
+        PageInfo ordersPage = new PageInfo(orders,pageSize);
+        return ordersPage;
     }
 
     //返回给前端的数据 将id解析为具体的商品
+    @Override
     public List<Order> formatOrderContent(List<Order> orderList) {
         List<Order> orders = new ArrayList<>();
         for (Order o : orderList) {
+            o.setUid(userService.getUserById(o.getUid()).getName());
             String[] split = o.getContent().split(",");
-            List<OrderContent> contentList = new ArrayList<>();
+             List<OrderContent> contentList = new ArrayList<>();
             for (int i = 0; i < split.length; i++) {
                 contentList.add(contentMapper.selectByPrimaryKey(split[i]));
             }

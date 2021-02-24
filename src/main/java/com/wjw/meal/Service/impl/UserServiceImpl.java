@@ -37,6 +37,12 @@ public class UserServiceImpl implements UserService {
         return userMapper.selectByExample(example).get(0);
     }
 
+    @Override
+    public User getUserById(String uid) {
+        return userMapper.selectByPrimaryKey(uid);
+    }
+
+
     public Boolean verifyUser(String username, String password) {
         UserExample example = new UserExample();
         example.createCriteria().andUsernameEqualTo(username);

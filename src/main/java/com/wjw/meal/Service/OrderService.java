@@ -1,5 +1,7 @@
 package com.wjw.meal.Service;
-
+;
+import com.alibaba.fastjson.JSONObject;
+import com.github.pagehelper.PageInfo;
 import com.wjw.meal.Pojo.Order;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,7 +18,9 @@ public interface OrderService {
 
     void updateOrder(Order order);
 
-    List<Order> getAllOrders();
+    PageInfo getAllOrders(Integer pn,Integer pageSize);
 
-    List<Order> getOrdersSelective(String byWhat,String condition);
+    PageInfo getOrdersSelective(String byWhat,String condition,Integer pn,Integer pageSize);
+
+    List<Order> formatOrderContent(List<Order> orderList);
 }

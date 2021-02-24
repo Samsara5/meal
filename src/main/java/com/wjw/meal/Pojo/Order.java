@@ -1,5 +1,7 @@
 package com.wjw.meal.Pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class Order {
@@ -7,15 +9,17 @@ public class Order {
 
     private String uid;
 
+    private String content;
+
     private String price;
 
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date createtime;
 
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date finshtime;
 
     private Integer state;
-
-    private String content;
 
     public String getOid() {
         return oid;
@@ -31,6 +35,14 @@ public class Order {
 
     public void setUid(String uid) {
         this.uid = uid == null ? null : uid.trim();
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public String getPrice() {
@@ -63,13 +75,5 @@ public class Order {
 
     public void setState(Integer state) {
         this.state = state;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
     }
 }

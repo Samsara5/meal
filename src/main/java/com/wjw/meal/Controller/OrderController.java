@@ -1,15 +1,20 @@
 package com.wjw.meal.Controller;
 
+import com.alibaba.fastjson.JSONObject;
+import com.github.pagehelper.PageInfo;
 import com.wjw.meal.Pojo.Message;
 import com.wjw.meal.Pojo.Order;
 import com.wjw.meal.Service.OrderService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import springfox.documentation.spring.web.json.Json;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author wujiawei
@@ -63,14 +68,22 @@ public class OrderController {
 
     @ApiOperation("查询所有订单")
     @GetMapping("/getallorders")
-    public Message getAllOrders() {
-        return Message.success().add("orderInfo", orderService.getAllOrders());
+    public Message getAllOrders(@RequestParam(value = "pn",defaultValue = "1")Integer pn,@RequestParam(value = "size",defaultValue = "10")Integer pageSize) {
+        PageInfo info = orderService.getAllOrders( pn, pageSize);
+        List list = orderService.formatOrderContent(info.getList());
+        info.setList(list);
+        return Message.success().add("orderInfo",info);
     }
 
     @ApiOperation("通过条件查询订单，1时间，2顾客，3状态")
     @GetMapping("/getOrdersSelective")
-    public Message getOrdersSelective(@RequestParam String bywhat, String condition) {
-        return Message.success().add("orderInfo", orderService.getOrdersSelective(bywhat, condition));
+    public Message getOrdersSelective(@RequestParam("bywhat") String bywhat,
+                                      @RequestParam("condition") String condition,
+                                      @RequestParam(value = "pn",defaultValue = "1")Integer pn,
+                                      @RequestParam(value = "size",defaultValue = "10")Integer pageSize) {
+        PageInfo info = orderService.getOrdersSelective(bywhat, condition, pn, pageSize);
+        List list = orderService.formatOrderContent(info.getList());
+        info.setList(list);
+        return Message.success().add("orderInfo",info);
     }
-
 }

@@ -53,12 +53,12 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public PageInfo getAllMenusByPageNum(Integer pn, Integer pagesize) {
+    public PageInfo getAllMenusByPageNum(Integer pn, Integer pageSize) {
         MenuExample menuExample = new MenuExample();
         menuExample.setOrderByClause("mtypeid ASC");
-        PageHelper.startPage(pn, pagesize);
+        PageHelper.startPage(pn, pageSize);
         List<Menu> menus = menuMapper.selectByExample(menuExample);
-        PageInfo menusPage = new PageInfo(menus,pagesize);
+        PageInfo menusPage = new PageInfo(menus,pageSize);
         return menusPage;
     }
 

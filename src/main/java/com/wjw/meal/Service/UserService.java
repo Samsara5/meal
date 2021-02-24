@@ -12,6 +12,8 @@ public interface UserService {
 
     User getUserByName(String name);
 
+    User getUserById(String uid);
+
     Boolean verifyUser(String username, String password);
 
     void AddUser(User user);
