@@ -1,17 +1,14 @@
 package com.wjw.meal.Controller;
 
-import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageInfo;
 import com.wjw.meal.Pojo.Message;
 import com.wjw.meal.Pojo.Order;
 import com.wjw.meal.Service.OrderService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import springfox.documentation.spring.web.json.Json;
 
 import java.util.List;
 import java.util.Map;
@@ -46,15 +43,15 @@ public class OrderController {
     }
 
     @ApiOperation("删除订单记录")
-    @DeleteMapping("/delorder")
-    public Message delOrderById(@RequestParam String id) {
-        orderService.delOrderById(id);
+    @PostMapping("/delorder")
+    public Message delOrderById(@RequestBody Map<String, String> id) {
+        orderService.delOrderById(id.get("id"));
         return Message.success();
     }
 
     @ApiOperation("批量删除订单记录")
-    @DeleteMapping("/delorderByIds")
-    public Message delOrdersByIDs(@RequestParam List<String> Ids) {
+    @PostMapping("/delorderByIds")
+    public Message delOrdersByIDs(@RequestBody List<String> Ids) {
         orderService.delOrdersByIDs(Ids);
         return Message.success();
     }

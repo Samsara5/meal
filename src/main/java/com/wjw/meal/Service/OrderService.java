@@ -3,6 +3,7 @@ package com.wjw.meal.Service;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageInfo;
 import com.wjw.meal.Pojo.Order;
+import com.wjw.meal.Pojo.OrderPojo;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -22,5 +23,5 @@ public interface OrderService {
 
     PageInfo getOrdersSelective(String byWhat,String condition,Integer pn,Integer pageSize);
 
-    List<Order> formatOrderContent(List<Order> orderList);
+    List<OrderPojo> formatOrderContent(List<Order> orderList);
 }

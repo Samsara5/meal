@@ -190,17 +190,23 @@ public class OrderServiceImpl implements OrderService {
 
     //返回给前端的数据 将id解析为具体的商品
     @Override
-    public List<Order> formatOrderContent(List<Order> orderList) {
-        List<Order> orders = new ArrayList<>();
+    public List<OrderPojo> formatOrderContent(List<Order> orderList) {
+        List<OrderPojo> orders = new ArrayList<>();
         for (Order o : orderList) {
-            o.setUid(userService.getUserById(o.getUid()).getName());
+            OrderPojo pojo = new OrderPojo();
+            pojo.setOid(o.getOid());
+            pojo.setCreatetime(o.getCreatetime());
+            pojo.setFinshtime(o.getFinshtime());
+            pojo.setState(o.getState());
+            pojo.setUid(userService.getUserById(o.getUid()).getName());
+            pojo.setPrice(o.getPrice());
             String[] split = o.getContent().split(",");
              List<OrderContent> contentList = new ArrayList<>();
             for (int i = 0; i < split.length; i++) {
                 contentList.add(contentMapper.selectByPrimaryKey(split[i]));
             }
-            o.setContent(JSON.toJSONString(contentList));
-            orders.add(o);
+            pojo.setContent(contentList);
+            orders.add(pojo);
         }
         return orders;
     }

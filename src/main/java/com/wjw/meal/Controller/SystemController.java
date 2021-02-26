@@ -56,6 +56,12 @@ public class SystemController {
         systemService.getStroeExcelTemplate(response);
     }
 
+    @ApiOperation(value = "下载仓储导入模板")
+    @GetMapping("/getOrderImportTemplate")
+    public void getOrderImportTemplate(HttpServletResponse response) {
+        systemService.getOrderExcelTemplate(response);
+    }
+
     @ApiOperation(value = "获取菜单展示图片")
     @GetMapping("/getMenuImage")
     public void getImageFile(HttpServletResponse response,@RequestParam(value = "menuId") String menuId){
