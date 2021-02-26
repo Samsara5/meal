@@ -85,6 +85,11 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeMapper.updateByExampleSelective(employee, example);
     }
 
+    @Override
+    public Employee getEmployeeByID(String id) {
+        return employeeMapper.selectByPrimaryKey(id);
+    }
+
 
     @Override
     public String importEmployeesByExcel(MultipartFile file) {

@@ -1,5 +1,7 @@
 package com.wjw.meal.Service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.wjw.meal.Dao.StoreMapper;
 import com.wjw.meal.Pojo.Store;
 import com.wjw.meal.Pojo.StoreExample;
@@ -140,7 +142,7 @@ public class StroeServiceImpl implements StoreService {
     }
 
     @Override
-    public void delStoreByid(String id) {
+    public void delStoreById(String id) {
         storeMapper.deleteByPrimaryKey(id);
     }
 
@@ -152,15 +154,19 @@ public class StroeServiceImpl implements StoreService {
     }
 
     @Override
-    public void updateStrore(Store store) {
+    public void updateStore(Store store) {
         StoreExample example = new StoreExample();
         example.createCriteria().andStroeidEqualTo(store.getStroeid());
         storeMapper.updateByExampleSelective(store, example);
     }
 
     @Override
-    public List<Store> getAllStrores() {
-        return storeMapper.selectByExample(null);
+    public PageInfo getAllStores(Integer pn, Integer pageSize) {
+        PageHelper.startPage(pn, pageSize);
+        List<Store> stores = storeMapper.selectByExample(null);
+        PageInfo storesPage = new PageInfo(stores, pageSize);
+        storesPage.setList(formatStoreMan(storesPage.getList()));
+        return storesPage;
     }
 
     @Override
@@ -172,14 +178,34 @@ public class StroeServiceImpl implements StoreService {
 
     @Override
     public Map<String, String> getStoreNames() {
-        Map<String,String> res = new HashMap<>();
-        List<Store> allStores = getAllStrores();
-        for (Store s :allStores) {
-            res.put(s.getStroeid(),s.getStroename());
+        Map<String, String> res = new HashMap<>();
+        List<Store> allStores = storeMapper.selectByExample(null);
+        for (Store s : allStores) {
+            res.put(s.getStroeid(), s.getStroename());
         }
         return res;
     }
 
+    @Override
+    public PageInfo getStoreByType(Integer typeId, Integer pn, Integer pageSize) {
+        StoreExample example = new StoreExample();
+        // 1荤菜  2素菜 3饮料
+        example.createCriteria().andStroestateEqualTo(typeId);
+        PageHelper.startPage(pn, pageSize);
+        List<Store> stores = storeMapper.selectByExample(example);
+        PageInfo storePage = new PageInfo(stores);
+        storePage.setList(formatStoreMan(storePage.getList()));
+        return storePage;
+    }
+
+    public List<Store> formatStoreMan(List<Store> stores){
+        List<Store> newList = new ArrayList<>();
+        for (Store s: stores) {
+            s.setStoreman(employeeService.getEmployeeByID(s.getStoreman()).getEname());
+            newList.add(s);
+        }
+        return newList;
+    }
 
     //通过store去更新菜单 传入Excel
     @Override

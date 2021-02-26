@@ -13,6 +13,8 @@ public interface EmployeeService {
 
     Employee getEmployeeByName(String name);
 
+    Employee getEmployeeByID(String id);
+
     void AddEmployee(Employee employee);
 
     Map<String, String> getPassword(String username, String phone, String name);

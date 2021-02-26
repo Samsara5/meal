@@ -1,5 +1,6 @@
 package com.wjw.meal.Service;
 
+import com.github.pagehelper.PageInfo;
 import com.wjw.meal.Pojo.Store;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -12,17 +13,19 @@ public interface StoreService {
 
     void importStoresByExcel(MultipartFile file);
 
-    void delStoreByid(String id);
+    void delStoreById(String id);
 
     void delStoresByIds(List<String> ids);
 
-    void updateStrore(Store store);
+    void updateStore(Store store);
 
-    List<Store> getAllStrores();
+    PageInfo getAllStores(Integer pn, Integer pageSize);
 
     Store getStoreByName(String name);
 
     Map<String, String> getStoreNames();
+
+    PageInfo getStoreByType(Integer typeId,Integer pn,Integer pageSize);
 
     void initMenuByStore();
 }
