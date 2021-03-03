@@ -27,5 +27,7 @@ public interface StoreService {
 
     PageInfo getStoreByType(Integer typeId,Integer pn,Integer pageSize);
 
+    Store getStoreById(String id);
+
     void initMenuByStore();
 }

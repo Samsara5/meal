@@ -3,6 +3,7 @@ package com.wjw.meal.Service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.wjw.meal.Dao.StoreMapper;
+import com.wjw.meal.Pojo.Employee;
 import com.wjw.meal.Pojo.Store;
 import com.wjw.meal.Pojo.StoreExample;
 import com.wjw.meal.Service.EmployeeService;
@@ -205,6 +206,13 @@ public class StroeServiceImpl implements StoreService {
             newList.add(s);
         }
         return newList;
+    }
+
+    @Override
+    public Store getStoreById(String id){
+        Store store = storeMapper.selectByPrimaryKey(id);
+        store.setStoreman(employeeService.getEmployeeByID(store.getStoreman()).getEname());
+        return store;
     }
 
     //通过store去更新菜单 传入Excel

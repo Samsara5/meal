@@ -82,4 +82,10 @@ public class StoreController {
                                   @RequestParam(value = "size",defaultValue = "10") Integer pageSize) {
         return Message.success().add("stores", storeService.getStoreByType(typeId, pn, pageSize));
     }
+
+    @ApiOperation("通过ID查询库存")
+    @GetMapping("/getStoreById")
+    public Message getStoreById(@RequestParam("id")String  id){
+        return Message.success().add("stores",storeService.getStoreById(id));
+    }
 }
